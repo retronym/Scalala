@@ -17,7 +17,11 @@ class Project(info: ProjectInfo) extends ProguardProject(info) {
   val Scalatest = "org.scalatest" % "scalatest" % "1.0.1-for-scala-2.8.0.Beta1-RC5-with-test-interfaces-0.2-SNAPSHOT" % "test"
   val Junit = "junit" % "junit" % "4.5" % "test"
 
-  override def compileOptions = Optimise :: Deprecation :: target(Target.Java1_5) :: Unchecked :: super.compileOptions.toList
+  override def localScala =
+    defineScala("2.8.0-local", new java.io.File("../scala/build/pack/")) ::
+    Nil
+
+  override def compileOptions = /*CompileOption("-no-specialization") ::*/ CompileOption("-Ylog:specialize") :: Optimise :: Deprecation :: target(Target.Java1_5) :: Unchecked :: super.compileOptions.toList
 
   override def packageOptions = ManifestAttributes((IMPLEMENTATION_TITLE, "Scalala"), (IMPLEMENTATION_URL, "http://code.google.com/p/scalala/"), (IMPLEMENTATION_VENDOR, "org.scalanlp"), (SEALED, "true")) :: Nil
 
