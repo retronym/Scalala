@@ -61,7 +61,8 @@ object DenseVector {
 
   implicit object DenseVectorCanMapValuesFrom
   extends DomainMapCanMapValuesFrom[DenseVector,Int,Double,Double,DenseVector] {
-    override def apply(from : DenseVector, fn : (Double=>Double)) = {
+    override def apply(from_ : DenseVector, fn : (Double=>Double)) = {
+      val from: DenseVector = from_ // workaround for compiler crasher "scala.tools.nsc.symtab.Types$TypeError: value data$mcD$sp is not a member of type parameter From"
       val data = new Array[Double](from.size);
       var i = 0;
       while (i < data.length) {
@@ -71,7 +72,8 @@ object DenseVector {
       new DenseVector(data);
     }
 
-    override def apply(from : DenseVector, fn : ((Int,Double)=>Double)) = {
+    override def apply(from_ : DenseVector, fn : ((Int,Double)=>Double)) = {
+      val from: DenseVector = from_ // workaround for compiler crasher "scala.tools.nsc.symtab.Types$TypeError: value data$mcD$sp is not a member of type parameter From"
       val data = new Array[Double](from.size);
       var i = 0;
       while (i < data.length) {
