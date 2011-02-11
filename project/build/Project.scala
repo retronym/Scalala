@@ -24,7 +24,7 @@ class Project(info: ProjectInfo) extends ProguardProject(info) {
   override def compileOptions =
     Optimise :: Deprecation ::
     target(Target.Java1_5) ::
-    Unchecked :: CompileOption("-no-specialization") ::
+    Unchecked ::
     super.compileOptions.toList
 
   override def packageOptions = ManifestAttributes(
