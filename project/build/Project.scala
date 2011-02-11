@@ -5,6 +5,8 @@ import java.util.jar.Attributes.Name._
 class Project(info: ProjectInfo) extends ProguardProject(info) {
   val ondexRepo = "ondex" at "http://ondex.rothamsted.bbsrc.ac.uk/nexus/content/groups/public"
   val scalaToolsSnapshots = "Scala Tools Snapshots" at "http://scala-tools.org/repo-snapshots/"
+  val scalaNlp = "ScalaNLP Maven2" at "http://repo.scalanlp.org/repo/"
+  val scalaNlpSnapshots = "Scala-Tools Maven2 Repository snapshots" at "http://scala-tools.org/repo-snapshots"
   // lazy val mavenLocal = "Local Maven Repository" at "file://"+Path.userHome+"/.m2/repository"
   // val publishTo = "Local Nexus" at "http://localhost:8081/nexus/content/repositories/snapshots" 
 
@@ -15,7 +17,7 @@ class Project(info: ProjectInfo) extends ProguardProject(info) {
   val Jfreechart = "jfree" % "jfreechart" % "1.0.13"
   val XmlgraphicsCommons = "org.apache.xmlgraphics" % "xmlgraphics-commons" % "1.3.1"
   val Itext = "com.lowagie" % "itext" % "2.1.5" intransitive()
-  val Scalacheck = "org.scala-tools.testing" %% "scalacheck" % "1.7" % "test"
+  val Scalacheck = "org.scala-tools.testing" % "scalacheck_2.8.0" % "1.7" % "test"
   val Scalatest = "org.scalatest" % "scalatest" % "1.2-for-scala-2.8.0.RC6-SNAPSHOT" % "test"
   val Junit = "junit" % "junit" % "4.5" % "test"
 
