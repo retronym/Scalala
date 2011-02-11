@@ -321,7 +321,7 @@ trait TensorCompanion[Bound[K,V] <: Tensor[K,V]] extends tensor.TensorCompanion[
     }
   }
 
-  implicit def canAssignInto[K,V1,V2](implicit tf : (V2=>V1), s : Scalar[V2])
+  implicit def canAssignInto1[K,V1,V2](implicit tf : (V2=>V1), s : Scalar[V2])
   : CanAssignInto[Bound[K,V1],tensor.Tensor[K,V2]] = new CanAssignInto[Bound[K,V1],tensor.Tensor[K,V2]] {
     override def apply(a : Bound[K,V1], b : tensor.Tensor[K,V2]) = {
       a.checkDomain(b.domain);
