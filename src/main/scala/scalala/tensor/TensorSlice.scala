@@ -40,7 +40,7 @@ extends TensorLike[A2,B,D2,This] {
 self =>
 
   /** The collection underlying this view. */
-  protected def underlying: Coll;
+  protected[scalala] def underlying: Coll;
 
   /** Maps the keys of this domain map to the keys of the underlying maps's. */
   def lookup(key : A2) : A1;
