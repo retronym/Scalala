@@ -47,9 +47,14 @@ import scalala.scalar.Scalar;
  *
  * @author dlwh, dramage
  */
+// TODO change protected[scalala] back to protected and witness:
+//[error] Error running compile: scala.tools.nsc.symtab.Types$TypeError: variable index in class SparseArray cannot be accessed in scalala.collection.sparse.SparseArray[Unit]
+//[error]  Access to protected method index not permitted because
+//[error]  prefix type scalala.collection.sparse.SparseArray[Unit] does not conform to
+//[error]  class SparseArray$mcV$sp in package sparse where the access take place
 @SerialVersionUID(1L)
 final class SparseArray[@specialized T]
-(val length : Int, protected var index : Array[Int], protected var data : Array[T], protected var used : Int, initialActiveLength : Int)
+(val length : Int, protected[scalala] var index : Array[Int], protected[scalala] var data : Array[T], protected[scalala] var used : Int, initialActiveLength : Int)
 (implicit m : ClassManifest[T], df : DefaultArrayValue[T])
 extends Serializable {
 
