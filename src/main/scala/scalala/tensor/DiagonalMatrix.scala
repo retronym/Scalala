@@ -1,66 +1,58 @@
-/*
- * Distributed as part of Scalala, a linear algebra library.
- * 
- * Copyright (C) 2008- Daniel Ramage
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+package scalala
+package tensor
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
-
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110 USA 
- */
-package scalala;
-package tensor;
-
-import collection.MergeableSet;
+import domain.TableDomain
+import scalar.Scalar
 
 /**
- * A view of the given vector as a matrix with diagonal entries
- * wrapping the underlying vector.  Reads and writes are passed
- * through to the underlying vector.
+ * A matrix with values only on its diagonal, as defined by the
+ * given vector.
  * 
- * @author dramage
+ * @author dlwh, dramage
  */
-case class DiagonalMatrix(diagonal : Vector) extends Matrix {
-  override def rows = diagonal.size;
-  override def cols = diagonal.size;
-  override def apply(row : Int, col : Int) = 
-    if (row == col) diagonal(row) else 0.0;
-  override def update(row : Int, col : Int, value : Double) = {
-    if (row == col) {
-      diagonal(row) = value;
-    } else {
-      throw new IndexOutOfBoundsException("Cannot set off-diagonal iterator of diagonal matrix");
-    }
+class DiagonalMatrix[Vec,V](val diag : Vec)
+(implicit val scalar: Scalar[V], view: Vec<:<Vector[V])
+extends Matrix[V] with MatrixLike[V,DiagonalMatrix[Vec,V]] {
+  override def numCols = diag.size;
+  
+  override def numRows = diag.size;
+  
+  override def nonzeroSize = diag.nonzeroSize;
+  
+  override def apply(i: Int, j: Int): V = {
+    diag.checkKey(i);
+    diag.checkKey(j);
+    if (i == j) diag(i) else scalar.zero
   }
-  override def activeDomain = new MergeableSet[(Int,Int)] {
-    override def size = diagonal.activeDomain.size;
-    override def contains(i : (Int,Int)) = (i._1 == i._2) && diagonal.activeDomain.contains(i._1);
-    override def iterator = diagonal.activeDomain.iterator.map(i => (i,i));
+  
+  override def foreachNonZeroKey[U](fn : (((Int,Int))=>U)) : Boolean = {
+    diag.foreachNonZeroKey((i : Int) => fn((i,i)));
+    false;
+  }
+    
+  override def foreachNonZeroValue[U](fn : (V=>U)) : Boolean = {
+    diag.foreachNonZeroValue(fn);
+    false;
   }
 
-  /**
-  * Creates a tensor "like" this one, but with zeros everywhere.
-  */
-  def like = new DiagonalMatrix(diagonal.like);
-
-  /**
-  * Creates a vector "like" this one, but with zeros everywhere.
-  */
-  def matrixLike(rows:Int,cols:Int) = new DiagonalMatrix(diagonal.vectorLike(rows));
-
-  /**
-  * Creates a vector "like" this one, but with zeros everywhere.
-  */
-  def vectorLike(size:Int) = diagonal.vectorLike(rows);
-
-  override def copy = DiagonalMatrix(diagonal.copy);
+  override def foreachNonZeroPair[U](fn : ((Int,Int),V)=>U) : Boolean = {
+    diag.foreachNonZeroPair((i : Int, v : V) => fn((i,i),v));
+    false;
+  }
+  
+  override def foreachNonZeroTriple[U](fn : (Int,Int,V)=>U) : Boolean =
+    diag.foreachNonZeroPair((i : Int, v : V) => fn(i,i,v));
+    
+  override def keysIteratorNonZero =
+    diag.keysIteratorNonZero.map(i => (i,i));
+  
+  override def valuesIteratorNonZero =
+    diag.valuesIteratorNonZero;
+  
+  override def pairsIteratorNonZero =
+    diag.pairsIteratorNonZero.map(tup => ((tup._1,tup._1),tup._2));
+  
+  override def triplesIteratorNonZero =
+    diag.pairsIteratorNonZero.map(tup => (tup._1, tup._1, tup._2));
 }
+

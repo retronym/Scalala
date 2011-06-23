@@ -1,8 +1,8 @@
 /*
  * Distributed as part of Scalala, a linear algebra library.
- * 
+ *
  * Copyright (C) 2008- Daniel Ramage
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -15,68 +15,54 @@
 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110 USA 
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110 USA
  */
+
 package scalala;
 package library;
 
-import tensor.{Tensor,Vector,Matrix};
-import tensor.dense.{DenseVector,DenseMatrix};
+import random.MersenneTwisterFast
 
 /**
- * Random number generation.
- * 
- * @author dramage
+ * <p>Random number generation.  This class uses the MersenneTwisterFast
+ * implementation by Sean Luke http://www.cs.gmu.edu/~sean/research/
+ * as its underlying random number generator.  The Mersenne Twister
+ * is very fast with an excellent pseudo-random distribution, but it
+ * is not cryptographically strong.</p>
+ *
+ * <p>Each random number generating method accepts a
+ * MersenneTwisterFast implementation as an implicit argument, defaulting
+ * to the <code>Random.mt</code> instance.  That instance's seed is set
+ * with the long value held in the scalala.library.random.seed System property.
+ * If the property is not defined, the current time in milliseconds is used
+ * as the random seed.</p>
+ *
+ * <p>The MersenneTwisterFast implementation is not thread-safe, so all
+ * accessors to an instance (<code>mt</code>) wrap calls in a mt.synchronized
+ * block.  Therefore, calling a vector constructor is substantially faster
+ * than calling rand() many times.</p>
+ *
+ * <p>The seed can be set with the system property during Java invocation, e.g. by
+ * -Dscalala.library.random.seed=1l</p>
+ *
+ * @author dramage,afwlehmann
  */
-trait Random extends Library {
-  implicit val _scalala_random = new java.util.Random;
-  
-  /** Returns a psuedo-random number from the interval 0 to 1 */
-  def rand()(implicit rand : java.util.Random) = rand.nextDouble;
-  
-  /** Returns vector of size n, each element from 0 to 1 */
-  def rand(n : Int)(implicit rand : java.util.Random) : Vector = {
-    val v = new DenseVector(n);
-    for (i <- 0 until n) {
-      v(i) = rand.nextDouble;
-    }
-    return v;
+object Random {
+  /** Returns a pseudo-random number from the interval 0 to 1. */
+  def rand()(implicit mt : MersenneTwisterFast) : Double = mt.synchronized {
+    mt.nextDouble;
   }
-  
-  /** Returns a random matrix of the given size, each element drawn from 0 to 1 */
-  def rand(rows : Int, cols : Int)(implicit rand : java.util.Random) : Matrix = {
-    val m = new DenseMatrix(rows,cols);
-    for (i <- 0 until rows; j <- 0 until cols) {
-      m(i,j) = rand.nextDouble;
-    }
-    return m;
+
+  /** Returns a pseudo-random gaussian variable. */
+  def randn()(implicit mt : MersenneTwisterFast) = mt.synchronized {
+    mt.nextGaussian;
   }
-  
-  /** Returns a pseudo-random gaussian variable */
-  def randn()(implicit rand : java.util.Random) = rand.nextGaussian;
-  
-  /** Returns a vector of size n, each element from a gaussian*/
-  def randn(n : Int)(implicit rand : java.util.Random) : Vector = {
-    val v = new DenseVector(n);
-    for (i <- 0 until n) {
-      v(i) = rand.nextGaussian;
-    }
-    return v;
+
+  lazy val seed : Long = {
+    val prop = System.getProperty("scalala.library.random.seed");
+    if (prop != null) prop.toLong else System.currentTimeMillis;
   }
-  
-  /** Returns a random matrix of the given size, each element drawn from a gaussian */
-  def randn(rows : Int, cols : Int)(implicit rand : java.util.Random) : Matrix = {
-    val m = new DenseMatrix(rows,cols);
-    for (i <- 0 until rows; j <- 0 until cols) {
-      m(i,j) = rand.nextGaussian;
-    }
-    return m;
-  }
+
+  implicit val mt : MersenneTwisterFast =
+    new MersenneTwisterFast(seed);
 }
-
-/**
- * Random number generation.
- * 
- * @author bethard
- */
-object Random extends Random { }
