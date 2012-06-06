@@ -33,9 +33,9 @@ import scalala.scalar.Scalar;
  * @author dramage
  */
 trait TensorSliceLike
-[@specialized(Int,Long) K1, +D1<:IterableDomain[K1],
- @specialized(Int,Long) K2, +D2<:IterableDomain[K2],
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K1, +D1<:IterableDomain[K1],
+ /*@specialized(Int,Long)*/ K2, +D2<:IterableDomain[K2],
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K1,V],
  +This<:TensorSlice[K1,K2,V,Coll]]
 extends tensor.TensorSliceLike[K1,D1,K2,D2,V,Coll,This]
@@ -51,8 +51,8 @@ with TensorLike[K2,V,D2,This] {
  * @author dramage
  */
 trait TensorSlice
-[@specialized(Int,Long) K1, @specialized(Int,Long) K2,
- @specialized(Int,Long,Float,Double,Boolean) V, +Coll <: Tensor[K1, V]]
+[/*@specialized(Int,Long)*/ K1, /*@specialized(Int,Long)*/ K2,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V, +Coll <: Tensor[K1, V]]
 extends tensor.TensorSlice[K1,K2,V,Coll] with Tensor[K2,V]
 with TensorSliceLike[K1, IterableDomain[K1], K2, IterableDomain[K2], V, Coll, TensorSlice[K1, K2, V, Coll]];
 
