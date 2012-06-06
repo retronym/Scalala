@@ -25,7 +25,7 @@ import scala.annotation.implicitNotFound;
 import scala.collection.generic.CanBuildFrom;
 
 import scala.collection.mutable.HashMap;
-
+/*
 object BinaryOpRegistry {
   val resultTypes =
     HashMap[(Manifest[_],Manifest[_],Manifest[_]),Manifest[_]]();
@@ -47,3 +47,4 @@ object BinaryOpRegistry {
   }
 }
 
+*/

@@ -21,7 +21,7 @@
 package scalala;
 package operators;
 package codegen;
-
+/*
 import scala.annotation.implicitNotFound;
 import scala.collection.mutable.HashMap;
 
@@ -370,3 +370,4 @@ object GeneratedRegistryEntries {
   }
 }
 
+*/

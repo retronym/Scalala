@@ -28,7 +28,7 @@ import scala.tools.nsc.reporters.AbstractReporter
 import scala.tools.nsc.util.{BatchSourceFile, Position}
 
 import java.net.URLClassLoader
-
+/*
 /**
  * Class for dynamically defining classes and loading them at runtime.
  * Based on on Twitter's Eval helper class with modifications by dramage.
@@ -241,3 +241,4 @@ object DynamicCompiler {
     "Compiler exception " + messages.map(_.mkString("\n")).mkString("\n"))
 }
 
+*/
