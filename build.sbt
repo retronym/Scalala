@@ -64,7 +64,7 @@ credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 javacOptions ++= Seq("-source", "1.5", "-target", "1.5")
 
-scalacOptions ++= Seq("-no-specialization","-deprecation","-target:jvm-1.5")
+scalacOptions ++= Seq("-no-specialization","-deprecation")
 
 initialCommands := scala.io.Source.fromFile("src/main/resources/scalala.scala").getLines.mkString("\n")
 
