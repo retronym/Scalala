@@ -5,7 +5,7 @@ version := "1.0.0.RC3-SNAPSHOT"
 
 organization := "org.scalala"
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0-M6"
 
 crossScalaVersions := Seq("2.8.2", "2.9.1", "2.9.2")
 
