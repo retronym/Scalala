@@ -31,7 +31,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait Tensor1ProxyLike
-[@specialized(Int,Long)K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], Inner<:Tensor1[K,V], +This<:Tensor1[K,V]]
 extends TensorProxyLike[K,V,D,Inner,This] with Tensor1Like[K,V,D,This] {
   override def norm(n : Double) =
@@ -44,6 +44,6 @@ extends TensorProxyLike[K,V,D,Inner,This] with Tensor1Like[K,V,D,This] {
  * @author dramage
  */
 trait Tensor1Proxy
-[@specialized(Int,Long)K, @specialized(Int,Long,Float,Double) V, Inner<:Tensor1[K,V]]
+[/*@specialized(Int,Long)*/K, /*@specialized(Int,Long,Float,Double)*/ V, Inner<:Tensor1[K,V]]
 extends TensorProxy[K,V,Inner] with Tensor1[K,V] with Tensor1ProxyLike[K,V,Domain1[K],Inner,Tensor1Proxy[K,V,Inner]];
 

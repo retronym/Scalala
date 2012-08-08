@@ -32,7 +32,7 @@ import operators.ValuesMonadic
  * @author dramage
  */
 trait TensorNonZeroValuesMonadic
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +This<:Tensor[K,V]] extends ValuesMonadic[This,V] {
   /** Underlying tensor. */
   def repr : This;
@@ -66,7 +66,7 @@ trait TensorNonZeroValuesMonadic
 object TensorNonZeroValuesMonadic {
   /** Filtered view of the values in a Tensor.  Does not support map. */
   class Filtered
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V, +This<:Tensor[K,V]]
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V, +This<:Tensor[K,V]]
   (val repr : This, p : V=>Boolean) {
     def foreach[U](fn : V => U) =
       repr.foreachNonZeroValue(v => if (p(v)) fn(v));
@@ -89,7 +89,7 @@ object TensorNonZeroValuesMonadic {
 //    }
   }
 
-  implicit def asIterable[K, @specialized(Int,Long,Float,Double) V, T<:Tensor[K,V]]
+  implicit def asIterable[K, /*@specialized(Int,Long,Float,Double)*/ V, T<:Tensor[K,V]]
   (values : TensorNonZeroValuesMonadic[K,V,T]) = {
     new Iterable[V] {
       def self = values.repr;

@@ -28,9 +28,9 @@ package collection;
  *
  * @author dramage
  */
-trait CanJoin[-A, -B, @specialized(Int,Long) K,
-              @specialized(Int,Long,Float,Double) V1,
-              @specialized(Int,Long,Float,Double) V2] {
+trait CanJoin[-A, -B, /*@specialized(Int,Long)*/ K,
+              /*@specialized(Int,Long,Float,Double)*/ V1,
+              /*@specialized(Int,Long,Float,Double)*/ V2] {
   /** Joins on all keys in the domain. */
   def joinAll[RV](a : A, b : B, fn : (K,V1,V2)=>RV) : Unit;
 

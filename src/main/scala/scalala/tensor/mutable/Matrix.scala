@@ -33,7 +33,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait MatrixLike
-[@specialized(Int,Long,Float,Double,Boolean) V, +This<:Matrix[V]]
+[/*@specialized(Int,Long,Float,Double,Boolean)*/ V, +This<:Matrix[V]]
 extends tensor.MatrixLike[V,This]
 with Tensor2Like[Int,Int,V,IndexDomain,IndexDomain,TableDomain,TableDomain,This] {
   override def t : Matrix[V] =
@@ -46,7 +46,7 @@ with Tensor2Like[Int,Int,V,IndexDomain,IndexDomain,TableDomain,TableDomain,This]
  * @author dramage
  */
 trait Matrix
-[@specialized(Int,Long,Float,Double,Boolean) B]
+[/*@specialized(Int,Long,Float,Double,Boolean)*/ B]
 extends tensor.Matrix[B]
 with Tensor2[Int,Int,B]
 with MatrixLike[B,Matrix[B]];
@@ -98,7 +98,7 @@ object Matrix extends dense.DenseMatrixConstructors {
   extends tensor.Matrix.ColSliceImpl[V,Coll](underlying,col)
   with ColSlice[V,Coll];
 
-  trait MatrixSliceLike[@specialized(Int,Long,Float,Double,Boolean) V,
+  trait MatrixSliceLike[/*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Matrix[V], +This<:MatrixSlice[V,Coll]]
   extends tensor.Matrix.MatrixSliceLike[V,Coll,This]
   with TensorSliceLike[(Int,Int),TableDomain,(Int,Int),TableDomain,V,Coll,This]
@@ -107,7 +107,7 @@ object Matrix extends dense.DenseMatrixConstructors {
       underlying.update(lookup1(i), lookup2(j), value);
   }
 
-  trait MatrixSlice[@specialized(Int,Long,Float,Double,Boolean) V,
+  trait MatrixSlice[/*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Matrix[V]]
   extends tensor.Matrix.MatrixSlice[V,Coll] with TensorSlice[(Int,Int),(Int,Int),V,Coll]
   with Matrix[V] with MatrixSliceLike[V,Coll,MatrixSlice[V,Coll]];

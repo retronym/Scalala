@@ -33,8 +33,8 @@ import scalala.operators._;
  * @author dramage
  */
 trait Tensor2TransposeLike
-[@specialized(Int) K2, @specialized(Int) K1,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K2, /*@specialized(Int)*/ K1,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D2<:Domain1[K2], +D1<:Domain1[K1], +T<:Domain2[K2,K1], +D<:Domain2[K1,K2],
  +Coll<:Tensor2[K1,K2,V],
  +This<:Tensor2Transpose[K2,K1,V,Coll]]
@@ -56,8 +56,8 @@ self =>
  * @author dramage
  */
 trait Tensor2Transpose
-[@specialized(Int) K2, @specialized(Int) K1,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K2, /*@specialized(Int)*/ K1,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll <: Tensor2[K1,K2,V]]
 extends tensor.Tensor2Transpose[K2,K1,V,Coll]
 with TensorSlice[(K1,K2),(K2,K1),V,Coll]

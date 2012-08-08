@@ -145,7 +145,7 @@ trait Library {
   /**
    * Mean vector of the given matrix along the specified axis.
    */
-  def mean[@specialized T](X: Matrix[T], axis: Axis.Value)(implicit xv: T => Double)
+  def mean[/*@specialized*/ T](X: Matrix[T], axis: Axis.Value)(implicit xv: T => Double)
   : DenseVector[Double] = {
     // TODO: This calculation of the mean is rather slow. It should
     //       be transformed into several while loops.

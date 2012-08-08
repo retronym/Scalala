@@ -36,7 +36,7 @@ import scala.collection.mutable.HashMap
  * @author dlwh,dramage
  */
 trait Counter2Like
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V,
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V,
  +M1[VV]<:Curried[scala.collection.mutable.Map,K1]#Result[VV],
  +T<:scalala.tensor.mutable.Counter[K2,V],
  +This<:Counter2[K1,K2,V]]
@@ -51,12 +51,12 @@ extends tensor.Counter2Like[K1,K2,V,M1,T,This] with Tensor2Like[K1,K2,V,SetDomai
 }
 
 trait Counter2
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V]
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V]
 extends tensor.Counter2[K1,K2,V] with Tensor2[K1,K2,V]
 with Counter2Like[K1,K2, V,Curried[scala.collection.mutable.Map,K1]#Result,Counter[K2,V],Counter2[K1,K2,V]];
 
 object Counter2 {
-  class Impl[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V]
+  class Impl[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V]
   (override val data : scala.collection.mutable.Map[K1,Counter[K2,V]])
   (implicit override val scalar : Scalar[V])
   extends Counter2[K1,K2,V] with Serializable;

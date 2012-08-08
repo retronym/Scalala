@@ -43,8 +43,8 @@ import scalala.generic.math.{CanMean,CanVariance,CanSqrt};
  * @author dramage
  */
 trait TensorLike
-[@specialized(Int, Long) K,
- @specialized(Int, Long, Float, Double, Boolean) V,
+[/*@specialized(Int, Long)*/ K,
+ /*@specialized(Int, Long, Float, Double, Boolean)*/ V,
  +D<:IterableDomain[K],
  +This<:Tensor[K,V]]
 extends DomainFunction[K, V, D]
@@ -522,7 +522,7 @@ self =>
  * @author dramage
  */
 trait Tensor
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends TensorLike[K, V, IterableDomain[K], Tensor[K, V]];
 
 object Tensor {

@@ -30,8 +30,8 @@ import domain.{Domain1,Domain2};
  * @author dramage
  */
 trait Tensor2TransposeLike
-[@specialized(Int) K2, @specialized(Int) K1,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K2, /*@specialized(Int)*/ K1,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D2<:Domain1[K2],
  +D1<:Domain1[K1],
  +T<:Domain2[K2,K1],
@@ -59,8 +59,8 @@ self =>
  * @author dramage
  */
 trait Tensor2Transpose
-[@specialized(Int) K2, @specialized(Int) K1,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K2, /*@specialized(Int)*/ K1,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll <: Tensor2[K1,K2,V]]
 extends TensorSlice[(K1,K2),(K2,K1),V,Coll]
 with Tensor2[K2,K1,V]

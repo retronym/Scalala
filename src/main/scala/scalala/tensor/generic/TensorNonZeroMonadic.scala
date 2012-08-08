@@ -33,7 +33,7 @@ import operators.HasValuesMonadic
  * @author dramage
  */
 trait TensorNonZeroMonadic
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +This<:Tensor[K,V]] extends HasValuesMonadic[This,V] { self =>
 
   /** Underlying tensor. */

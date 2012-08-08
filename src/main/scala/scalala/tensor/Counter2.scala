@@ -35,7 +35,7 @@ import tensor.Counter2.Curried
  * @author dlwh
  */
 trait Counter2Like
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V,
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V,
  +M1[VV] <: Curried[scala.collection.Map,K1]#Result[VV],
  +T <: Counter[K2,V],
  +This<:Counter2[K1,K2,V]]
@@ -107,7 +107,7 @@ extends Tensor2Like[K1,K2,V,SetDomain[K1],SetDomain[K2],Domain2[K1,K2],Domain2[K
 }
 
 trait Counter2
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V]
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor2[K1,K2,V] with Counter2Like[K1,K2,V,Curried[scala.collection.Map,K1]#Result,Counter[K2,V],Counter2[K1,K2,V]];
 
 object Counter2 {

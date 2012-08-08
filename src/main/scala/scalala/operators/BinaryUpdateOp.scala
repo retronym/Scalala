@@ -30,7 +30,7 @@ import scalala.scalar.Scalar;
  * @author dramage
  */
 @implicitNotFound(msg="Could not find a way to ${O} ${B} into ${A}")
-trait BinaryUpdateOp[@specialized -A, @specialized -B, O<:OpType]
+trait BinaryUpdateOp[/*@specialized*/ -A, /*@specialized*/ -B, O<:OpType]
 extends ((A,B) => Unit) {
   def opType : O;
 }

@@ -33,7 +33,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait MatrixTransposeLike
-[@specialized(Int,Long,Float,Double) V, +Coll <: Matrix[V], +This <: MatrixTranspose[V,Coll]]
+[/*@specialized(Int,Long,Float,Double)*/ V, +Coll <: Matrix[V], +This <: MatrixTranspose[V,Coll]]
 extends tensor.MatrixTransposeLike[V,Coll,This]
 with Tensor2TransposeLike[Int,Int,V,IndexDomain,IndexDomain,TableDomain,TableDomain,Coll,This]
 with MatrixLike[V,This] {
@@ -48,7 +48,7 @@ with MatrixLike[V,This] {
  *
  * @author dramage
  */
-trait MatrixTranspose[@specialized(Int,Long,Float,Double) V, +Coll <: Matrix[V]]
+trait MatrixTranspose[/*@specialized(Int,Long,Float,Double)*/ V, +Coll <: Matrix[V]]
 extends tensor.MatrixTranspose[V,Coll]
 with Tensor2Transpose[Int,Int,V,Coll]
 with Matrix[V] with MatrixTransposeLike[V, Coll, MatrixTranspose[V, Coll]];

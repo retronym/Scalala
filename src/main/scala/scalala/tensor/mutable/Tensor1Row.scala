@@ -33,7 +33,7 @@ import scalala.scalar.Scalar;
  * @author dramage
  */
 trait Tensor1RowLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], +This<:Tensor1Row[K,V]]
 extends tensor.Tensor1RowLike[K,V,D,This] with Tensor1Like[K,V,D,This] {
 
@@ -47,7 +47,7 @@ extends tensor.Tensor1RowLike[K,V,D,This] with Tensor1Like[K,V,D,This] {
  * @author dramage
  */
 trait Tensor1Row
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends tensor.Tensor1Row[K,V] with Tensor1[K,V]
 with Tensor1RowLike[K,V,Domain1[K],Tensor1Row[K,V]];
 

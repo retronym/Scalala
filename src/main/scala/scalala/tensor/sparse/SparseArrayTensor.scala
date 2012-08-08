@@ -32,7 +32,7 @@ import scalala.scalar.Scalar;
  * @author dramage
  */
 trait SparseArrayTensorLike
-[@specialized(Int,Long) A, @specialized(Int,Long,Float,Double,Boolean) B,
+[/*@specialized(Int,Long)*/ A, /*@specialized(Int,Long,Float,Double,Boolean)*/ B,
  +D<:IterableDomain[A] with DomainLike[A,D],
  +This<:SparseArrayTensor[A,B]]
 extends mutable.TensorLike[A,B,D,This] {
@@ -65,6 +65,6 @@ extends mutable.TensorLike[A,B,D,This] {
  * @author dramage
  */
 trait SparseArrayTensor
-[@specialized(Int,Long) A, @specialized(Int,Long,Float,Double,Boolean) B]
+[/*@specialized(Int,Long)*/ A, /*@specialized(Int,Long,Float,Double,Boolean)*/ B]
 extends mutable.Tensor[A,B]
 with SparseArrayTensorLike[A,B,IterableDomain[A],SparseArrayTensor[A,B]];

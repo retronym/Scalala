@@ -37,8 +37,8 @@ import dense.DenseVector
  *
  * @author dramage
  */
-@SerialVersionUID(1)
-trait SparseVector[@specialized(Int,Long,Float,Double) V]
+//@SerialVersionUID(1)
+trait SparseVector[/*@specialized(Int,Long,Float,Double)*/ V]
 extends SparseArrayTensor[Int,V] with SparseArrayTensorLike[Int,V,IndexDomain,SparseVector[V]]
 with mutable.Vector[V] with mutable.VectorLike[V,SparseVector[V]] with Serializable {
   override def length = data.length;
@@ -91,64 +91,64 @@ object SparseVector {
 
     /** Optimized base class for creating zeros */
   trait CanCreateZerosSparseVector
-  [@specialized V, @specialized RV, SV[V]<:SparseVector[V]]
+  [/*@specialized*/ V, /*@specialized*/ RV, SV[V]<:SparseVector[V]]
     extends CanCreateZerosLike[SV[V],SV[RV]] {
     def create(length : Int) : SV[RV];
     def apply(v1: SV[V]) = create(v1.length);
   }
 
 
-  class GenericSparseVectorRowBase[@specialized V:Scalar:Manifest:DefaultArrayValue] {
+  class GenericSparseVectorRowBase[/*@specialized*/ V:Scalar:Manifest:DefaultArrayValue] {
     def create(length : Int) = new SparseVectorRow(new SparseArray[V](length))
   }
 
-  class GenericSparseVectorColBase[@specialized V:Scalar:Manifest:DefaultArrayValue] {
+  class GenericSparseVectorColBase[/*@specialized*/ V:Scalar:Manifest:DefaultArrayValue] {
     def create(length : Int) = new SparseVectorCol(new SparseArray[V](length))
   }
 
-  class GenericSparseVectorBase[@specialized V:Scalar:Manifest:DefaultArrayValue] {
+  class GenericSparseVectorBase[/*@specialized*/ V:Scalar:Manifest:DefaultArrayValue] {
     def create(length : Int) = new SparseVectorCol(new SparseArray[V](length))
   }
 
 
-  implicit def canCreateZerosSparseVector[@specialized V, @specialized RV:Scalar:Manifest:DefaultArrayValue]
+  implicit def canCreateZerosSparseVector[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest:DefaultArrayValue]
   : CanCreateZerosSparseVector[V, RV, SparseVector] =
     new GenericSparseVectorColBase with CanCreateZerosSparseVector[V, RV, SparseVector];
 
     /** Optimized base class for mapping dense columns. */
-  implicit def canCreateZerosSparseVectorCols[@specialized V, @specialized RV:Scalar:Manifest:DefaultArrayValue]
+  implicit def canCreateZerosSparseVectorCols[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest:DefaultArrayValue]
   : CanCreateZerosSparseVector[V, RV, SparseVectorCol] =
   new GenericSparseVectorColBase with CanCreateZerosSparseVector[V, RV, SparseVectorCol];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canCreateZerosSparseVectorRows[@specialized V, @specialized RV:Scalar:Manifest:DefaultArrayValue]
+  implicit def canCreateZerosSparseVectorRows[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest:DefaultArrayValue]
   : CanCreateZerosSparseVector[V, RV, SparseVectorRow] =
   new GenericSparseVectorRowBase with CanCreateZerosSparseVector[V, RV, SparseVectorRow];
 
 
   /** Optimized base class for mapping sparse columns. */
-  implicit def canCopySparseVectorCols[@specialized V:Scalar:Manifest] = new CanCopySparseVectorCol[V];
+  implicit def canCopySparseVectorCols[/*@specialized*/ V:Scalar:Manifest] = new CanCopySparseVectorCol[V];
 
   /** Optimized base class for mapping sparse rows. */
-  implicit def canCopySparseVectorRows[@specialized V:Scalar:Manifest] = new CanCopySparseVectorRow[V];
+  implicit def canCopySparseVectorRows[/*@specialized*/ V:Scalar:Manifest] = new CanCopySparseVectorRow[V];
 
   /** Optimized base class for mapping sparse . */
-  implicit def canCopySparseVector[@specialized V:Scalar:Manifest] = new CanCopySparseVector[V];
+  implicit def canCopySparseVector[/*@specialized*/ V:Scalar:Manifest] = new CanCopySparseVector[V];
 
   /** Optimized base class for copying sparse */
-  class CanCopySparseVectorRow[@specialized V:Scalar:ClassManifest] extends CanCopy[SparseVectorRow[V]] {
+  class CanCopySparseVectorRow[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[SparseVectorRow[V]] {
     def apply(v1: SparseVectorRow[V]) = {
       new SparseVectorRow[V](v1.data.copy)
     }
   }
 
-  class CanCopySparseVector[@specialized V:Scalar:ClassManifest] extends CanCopy[SparseVector[V]] {
+  class CanCopySparseVector[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[SparseVector[V]] {
     def apply(v1: SparseVector[V]) = {
       new SparseVectorCol[V](v1.data.copy)
     }
   }
 
-  class CanCopySparseVectorCol[@specialized V:Scalar:ClassManifest] extends CanCopy[SparseVectorCol[V]] {
+  class CanCopySparseVectorCol[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[SparseVectorCol[V]] {
     def apply(v1: SparseVectorCol[V]) = {
       new SparseVectorCol[V](v1.data.copy)
     }
@@ -283,7 +283,7 @@ object SparseVector {
   implicit val vspace = scalala.operators.bundles.MutableInnerProductSpace.make[Double,scalala.tensor.sparse.SparseVector[Double]]
 }
 
-class SparseVectorRow[@specialized(Int,Long,Float,Double) V]
+class SparseVectorRow[/*@specialized(Int,Long,Float,Double)*/ V]
 (override val data : SparseArray[V])
 (implicit override val scalar : Scalar[V])
 extends SparseVector[V] with mutable.VectorRow[V] with mutable.VectorRowLike[V,SparseVectorRow[V]] {
@@ -305,7 +305,7 @@ extends SparseVector[V] with mutable.VectorRow[V] with mutable.VectorRowLike[V,S
  *
  * @author dramage
  */
-class SparseVectorCol[@specialized(Int,Long,Float,Double) V]
+class SparseVectorCol[/*@specialized(Int,Long,Float,Double)*/ V]
 (override val data : SparseArray[V])
 (implicit override val scalar : Scalar[V])
 extends SparseVector[V] with mutable.VectorCol[V] with mutable.VectorColLike[V,SparseVectorCol[V]]  {

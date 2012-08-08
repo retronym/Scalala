@@ -32,8 +32,8 @@ import scalala.generic.collection._;
  * @author dramage
  */
 trait TensorProxyLike
-[@specialized(Int, Long) K,
- @specialized(Int, Long, Float, Double, Boolean) V,
+[/*@specialized(Int, Long)*/ K,
+ /*@specialized(Int, Long, Float, Double, Boolean)*/ V,
  +D<:IterableDomain[K],
  Inner <: Tensor[K,V],
  +This<:Tensor[K,V]]
@@ -144,6 +144,6 @@ extends TensorLike[K,V,D,This] {
  *
  * @author dramage
  */
-trait TensorProxy[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V, Inner <: Tensor[K,V]]
+trait TensorProxy[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V, Inner <: Tensor[K,V]]
 extends Tensor[K,V] with TensorProxyLike[K,V,IterableDomain[K],Inner,TensorProxy[K,V,Inner]];
 

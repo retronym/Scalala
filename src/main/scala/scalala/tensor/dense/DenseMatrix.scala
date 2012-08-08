@@ -43,7 +43,7 @@ import library.{LinearAlgebra, Random}
  * @author dramage
  */
 @SerialVersionUID(1)
-class DenseMatrix[@specialized(Int,Long,Float,Double) V]
+class DenseMatrix[/*@specialized(Int,Long,Float,Double)*/ V]
 (override val numRows : Int, override val numCols : Int, data_ : Array[V])
 (implicit override val scalar : Scalar[V])
 extends DenseArrayTensor[(Int,Int),V] with DenseArrayTensorLike[(Int,Int),V,TableDomain,DenseMatrix[V]]
@@ -141,7 +141,7 @@ with Serializable {
 object DenseMatrix extends DenseMatrixConstructors {
 
   /** Any matrix multiplied by dense is dense. */
-  implicit def canBuildDenseMatrixMulRight[@specialized A, VA, VB, RV]
+  implicit def canBuildDenseMatrixMulRight[/*@specialized*/ A, VA, VB, RV]
   (implicit viewA : A=>scalala.tensor.Matrix[VA], mul : BinaryOp[VA,VB,OpMul,RV], s : Scalar[RV])
   : CanBuildTensorForBinaryOp[A,DenseMatrix[VB],TableDomain,(Int,Int),RV,OpMulMatrixBy,DenseMatrix[RV]]
   = new CanBuildTensorForBinaryOp[A,DenseMatrix[VB],TableDomain,(Int,Int),RV,OpMulMatrixBy,DenseMatrix[RV]] {
@@ -154,19 +154,19 @@ object DenseMatrix extends DenseMatrixConstructors {
   // Capabilities
   //
 
-  class DenseMatrixCanSliceRow[@specialized V:Scalar]
+  class DenseMatrixCanSliceRow[/*@specialized*/ V:Scalar]
   extends CanSliceRow[DenseMatrix[V],Int,DenseVectorRow[V]] {
     override def apply(from : DenseMatrix[V], i : Int) =
       new DenseVectorRow[V](from.data, length = from.numCols, offset = i, stride = from.numRows);
   }
   
-  class DenseMatrixCanSliceCol[@specialized V:Scalar]
+  class DenseMatrixCanSliceCol[/*@specialized*/ V:Scalar]
   extends CanSliceCol[DenseMatrix[V],Int,DenseVectorCol[V]] {
     override def apply(from : DenseMatrix[V], j : Int) =
       new DenseVectorCol[V](from.data, length = from.numRows, offset = j * from.numRows, stride = 1);
   }
 
-  class DenseMatrixCanMapValues[@specialized(Int,Long,Float,Double) V, @specialized(Int,Long,Float,Double) R:ClassManifest:Scalar]
+  class DenseMatrixCanMapValues[/*@specialized(Int,Long,Float,Double)*/ V, /*@specialized(Int,Long,Float,Double)*/ R:ClassManifest:Scalar]
   extends CanMapValues[DenseMatrix[V],V,R,DenseMatrix[R]] {
     override def map(from : DenseMatrix[V], fn : (V=>R)) = {
       val data = new Array[R](from.data.length);
@@ -182,7 +182,7 @@ object DenseMatrix extends DenseMatrixConstructors {
       map(from, fn);
   }
 
-  class DenseMatrixCanMapKeyValuePairs[@specialized(Int,Long,Float,Double) V, @specialized(Int,Long,Float,Double) R:ClassManifest:Scalar]
+  class DenseMatrixCanMapKeyValuePairs[/*@specialized(Int,Long,Float,Double)*/ V, /*@specialized(Int,Long,Float,Double)*/ R:ClassManifest:Scalar]
   extends CanMapKeyValuePairs[DenseMatrix[V],(Int,Int),V,R,DenseMatrix[R]] {
     override def map(from : DenseMatrix[V], fn : (((Int,Int),V)=>R)) = {
       val data = new Array[R](from.data.length);
@@ -198,10 +198,10 @@ object DenseMatrix extends DenseMatrixConstructors {
       map(from, fn);
   }
 
-  implicit def mkDenseMatrixCanSliceRow[@specialized V:Scalar] =
+  implicit def mkDenseMatrixCanSliceRow[/*@specialized*/ V:Scalar] =
     new DenseMatrixCanSliceRow[V];
 
-  implicit def mkDenseMatrixCanSliceCol[@specialized V:Scalar] =
+  implicit def mkDenseMatrixCanSliceCol[/*@specialized*/ V:Scalar] =
     new DenseMatrixCanSliceCol[V];
     
   implicit def mkDenseMatrixCanMapValues[V,R:ClassManifest:Scalar] =

@@ -512,7 +512,7 @@ extends MutableNumericOps[SparseArray[V]] {
  *
  * @author dramage
  */
-class RichScalar[@specialized V:Scalar](override val repr : V)
+class RichScalar[/*@specialized*/ V:Scalar](override val repr : V)
 extends NumericOps[V] {
   /** This is a scalar, so alias for :*(b) for all b. */
   final def *[B,That](b : B)(implicit op : BinaryOp[V,B,OpMul,That]) =
@@ -567,7 +567,7 @@ extends MutableNumericOps[S] {
  *
  * @author dramage
  */
-class RichArray[@specialized V](override val repr : Array[V])
+class RichArray[/*@specialized*/ V](override val repr : Array[V])
 extends MutableNumericOps[Array[V]] {
   /** Constructs a view of this array as a column vector. */
   def asVector(implicit s : Scalar[V]) =
@@ -598,7 +598,7 @@ extends MutableNumericOps[Array[V]] {
  *
  * @author dramage
  */
-class RichFunction2[@specialized A, @specialized B](override val repr : A=>B)
+class RichFunction2[/*@specialized*/ A, /*@specialized*/ B](override val repr : A=>B)
 extends NumericOps[A=>B] {
   def :@[VV,That](values : VV)(implicit bf : scala.collection.generic.CanBuildFrom[VV,B,That], vv : VV => TraversableOnce[A]) = {
     val rv = bf(values);
@@ -608,7 +608,7 @@ extends NumericOps[A=>B] {
 }
 
 trait ImplicitsLevel0 {
-  implicit def richScalar[@specialized V:Scalar](value : V) =
+  implicit def richScalar[/*@specialized*/ V:Scalar](value : V) =
     new RichScalar(value);
 }
 
@@ -617,7 +617,7 @@ trait ImplicitsLevel1 extends ImplicitsLevel0 {
   
   implicit def richSeq[S<:scala.collection.Seq[_]](seq : S) = new RichSeq(seq);
   
-  implicit def richArray[@specialized V:Scalar](arr : Array[V]) = new RichArray(arr);
+  implicit def richArray[/*@specialized*/ V:Scalar](arr : Array[V]) = new RichArray(arr);
 
 }
 
@@ -629,6 +629,6 @@ trait ImplicitsLevel1 extends ImplicitsLevel0 {
  * @author dramage
  */
 object Implicits extends RichTupleImplicits with ImplicitsLevel1 {
-  implicit def richArrayMatrix[@specialized V:Scalar:ClassManifest](arr : Array[Array[V]]) = new RichArrayMatrix(arr);
+  implicit def richArrayMatrix[/*@specialized*/ V:Scalar:ClassManifest](arr : Array[Array[V]]) = new RichArrayMatrix(arr);
 }
 

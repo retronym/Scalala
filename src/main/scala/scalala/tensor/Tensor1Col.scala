@@ -33,7 +33,7 @@ import scalala.generic.collection.CanBuildTensorFrom;
  * @author dramage
  */
 trait Tensor1ColLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], +This<:Tensor1Col[K,V]]
 extends Tensor1Like[K,V,D,This] with operators.ColOps[This] { self =>
   override def newBuilder[K2,V2:Scalar](domain : IterableDomain[K2]) = domain match {
@@ -54,7 +54,7 @@ extends Tensor1Like[K,V,D,This] with operators.ColOps[This] { self =>
  *
  * @author dramage
  */
-trait Tensor1Col[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+trait Tensor1Col[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor1[K,V] with Tensor1ColLike[K,V,Domain1[K],Tensor1Col[K,V]];
 
 object Tensor1Col {

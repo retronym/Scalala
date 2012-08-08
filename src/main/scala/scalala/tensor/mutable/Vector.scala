@@ -32,7 +32,7 @@ import scalala.operators._;
  *
  * @author dramage.
  */
-trait VectorLike[@specialized(Int,Long,Float,Double,Boolean) V, +Repr<:Vector[V]]
+trait VectorLike[/*@specialized(Int,Long,Float,Double,Boolean)*/ V, +Repr<:Vector[V]]
 extends tensor.VectorLike[V,Repr] with Tensor1Like[Int,V,IndexDomain,Repr] {
 
   /** Returns a view of this vector as a row. Tightens bound superclass's return value. */
@@ -181,7 +181,7 @@ extends tensor.VectorLike[V,Repr] with Tensor1Like[Int,V,IndexDomain,Repr] {
  *
  * @author dramage
  */
-trait Vector[@specialized(Int,Long,Float,Double,Boolean) V]
+trait Vector[/*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends tensor.Vector[V] with Tensor1[Int,V]
 with VectorLike[V,Vector[V]];
 

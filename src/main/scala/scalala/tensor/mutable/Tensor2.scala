@@ -33,8 +33,8 @@ import scalala.operators._;
  * @author dramage
  */
 trait Tensor2Like
-[@specialized(Int) K1, @specialized(Int) K2,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D1<:Domain1[K1], +D2<:Domain1[K2], +D<:Domain2[K1,K2], +T<:Domain2[K2,K1],
  +This<:Tensor2[K1,K2,V]]
 extends tensor.Tensor2Like[K1,K2,V,D1,D2,D,T,This]
@@ -61,8 +61,8 @@ with TensorLike[(K1,K2),V,D,This] { self =>
  * @author dramage
  */
 trait Tensor2
-[@specialized(Int) K1, @specialized(Int) K2,
- @specialized(Int,Long,Float,Double,Boolean) V]
+[/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends Tensor[(K1,K2),V]
 with tensor.Tensor2[K1,K2,V]
 with Tensor2Like[K1,K2,V,Domain1[K1],Domain1[K2],Domain2[K1,K2],Domain2[K2,K1],Tensor2[K1,K2,V]];
@@ -142,8 +142,8 @@ object Tensor2 {
   with ColSlice[K1,K2,V,Coll];
 
   trait MatrixSliceLike
-  [@specialized(Int) K1, @specialized(Int) K2,
-   @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +D1<:Domain1[K1],
    +D2<:Domain1[K2],
    +D<:Domain2[K1,K2],
@@ -158,8 +158,8 @@ object Tensor2 {
   }
 
   trait MatrixSlice
-  [@specialized(Int,Long) K1, @specialized(Int,Long) K2,
-   @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int,Long)*/ K1, /*@specialized(Int,Long)*/ K2,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Tensor2[K1,K2,V]]
   extends tensor.Tensor2.MatrixSlice[K1,K2,V,Coll]
   with TensorSlice[(K1,K2),(Int,Int),V,Coll]

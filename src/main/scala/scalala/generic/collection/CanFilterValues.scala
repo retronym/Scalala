@@ -28,7 +28,7 @@ import scalala.collection.sparse.{SparseArray,DefaultArrayValue};
  *
  * @author dramage
  */
-trait CanFilterValues[From, @specialized A, +To] {
+trait CanFilterValues[From, /*@specialized*/ A, +To] {
   /** Maps all values from the given collection. */
   def filter(from : From, fn : (A=>Boolean)) : To;
 
@@ -43,7 +43,7 @@ object CanFilterValues {
   // Arrays
   //
 
-  class OpArray[@specialized A:ClassManifest]
+  class OpArray[/*@specialized*/ A:ClassManifest]
   extends Op[Array[A],A,Array[A]] {
     def filter(from : Array[A], fn : (A=>Boolean)) =
       from.filter(fn);
@@ -51,7 +51,7 @@ object CanFilterValues {
       this.filter(from, fn);
   }
 
-  implicit def opArray[@specialized A:ClassManifest] =
+  implicit def opArray[/*@specialized*/ A:ClassManifest] =
     new OpArray[A];
 
   implicit object OpArrayI extends OpArray[Int];
@@ -63,7 +63,7 @@ object CanFilterValues {
   //
   // SparseArrays
   //
-  class OpSparseArray[@specialized V:ClassManifest:DefaultArrayValue]
+  class OpSparseArray[/*@specialized*/ V:ClassManifest:DefaultArrayValue]
   extends Op[SparseArray[V],V,SparseArray[V]] {
     def filter(from : SparseArray[V], fn : (V=>Boolean)) =
       from.filter(fn);
@@ -76,7 +76,7 @@ object CanFilterValues {
     }
   }
 
-  implicit def opSparseArray[@specialized V:ClassManifest:DefaultArrayValue] =
+  implicit def opSparseArray[/*@specialized*/ V:ClassManifest:DefaultArrayValue] =
     new OpSparseArray[V];
 
   implicit object OpSparseArrayI extends OpSparseArray[Int];

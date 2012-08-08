@@ -29,8 +29,8 @@ import domain.{Domain1,IterableDomain,IndexDomain};
  * @author dramage
  */
 trait TensorProxyLike
-[@specialized(Int, Long) K,
- @specialized(Int, Long, Float, Double, Boolean) V,
+[/*@specialized(Int, Long)*/ K,
+ /*@specialized(Int, Long, Float, Double, Boolean)*/ V,
  +D<:IterableDomain[K],
  Inner <: Tensor[K,V],
  +This <: Tensor[K,V]]
@@ -57,7 +57,7 @@ extends tensor.TensorProxyLike[K,V,D,Inner,This] with TensorLike[K,V,D,This] {
  *
  * @author dramage
  */
-trait TensorProxy[@specialized(Int,Long) A, @specialized(Int,Long,Float,Double,Boolean) B, Inner <: Tensor[A,B]]
+trait TensorProxy[/*@specialized(Int,Long)*/ A, /*@specialized(Int,Long,Float,Double,Boolean)*/ B, Inner <: Tensor[A,B]]
 extends tensor.TensorProxy[A,B,Inner] with Tensor[A,B] with TensorProxyLike[A,B,IterableDomain[A],Inner,TensorProxy[A,B,Inner]];
 
 /**
@@ -66,8 +66,8 @@ extends tensor.TensorProxy[A,B,Inner] with Tensor[A,B] with TensorProxyLike[A,B,
  * @author dramage
  */
 trait Tensor1ProxyLike
-[@specialized(Int, Long) K,
- @specialized(Int, Long, Float, Double, Boolean) V,
+[/*@specialized(Int, Long)*/ K,
+ /*@specialized(Int, Long, Float, Double, Boolean)*/ V,
  +D<:Domain1[K],
  Inner <: Tensor1[K,V],
  +This <: Tensor1[K,V]]
@@ -80,8 +80,8 @@ extends tensor.Tensor1ProxyLike[K,V,D,Inner,This]
  * @author dramage
  */
 trait Tensor1Proxy
-[@specialized(Int, Long) K,
- @specialized(Int, Long, Float, Double, Boolean) V,
+[/*@specialized(Int, Long)*/ K,
+ /*@specialized(Int, Long, Float, Double, Boolean)*/ V,
  Inner <: Tensor1[K,V]]
 extends tensor.Tensor1Proxy[K,V,Inner]
    with TensorProxy[K,V,Inner] with Tensor1[K,V]
@@ -92,7 +92,7 @@ extends tensor.Tensor1Proxy[K,V,Inner]
  *
  * @author dramage
  */
-trait VectorProxyLike[@specialized(Int,Long,Float,Double) V, Inner<:Vector[V], +This<:Vector[V]]
+trait VectorProxyLike[/*@specialized(Int,Long,Float,Double)*/ V, Inner<:Vector[V], +This<:Vector[V]]
 extends tensor.VectorProxyLike[V,Inner,This] with Tensor1ProxyLike[Int,V,IndexDomain,Inner,This] with VectorLike[V,This];
 
 /**
@@ -100,6 +100,6 @@ extends tensor.VectorProxyLike[V,Inner,This] with Tensor1ProxyLike[Int,V,IndexDo
  *
  * @author dramage
  */
-trait VectorProxy[@specialized(Int,Long,Float,Double) V, Inner<:Vector[V]]
+trait VectorProxy[/*@specialized(Int,Long,Float,Double)*/ V, Inner<:Vector[V]]
 extends tensor.VectorProxy[V,Inner] with Tensor1Proxy[Int,V,Inner] with Vector[V] with VectorProxyLike[V,Inner,VectorProxy[V,Inner]];
 

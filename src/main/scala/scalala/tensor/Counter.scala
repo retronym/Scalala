@@ -35,7 +35,7 @@ import scalala.generic.collection._
  * @author dramage
  */
 trait CounterLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +M<:scala.collection.Map[K,V],
  +This<:Counter[K,V]]
 extends Tensor1Like[K,V,SetDomain[K],This] { self =>
@@ -91,7 +91,7 @@ extends Tensor1Like[K,V,SetDomain[K],This] { self =>
 }
 
 trait Counter
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor1[K,V] with CounterLike[K,V,scala.collection.Map[K,V],Counter[K,V]];
 
 private[scalala]
@@ -145,7 +145,7 @@ object Counter extends CounterImplicitsLevel1 {
   def count[K](items: K*): mutable.Counter[K,Int] = count(items);
 
   implicit def CanMapValuesCounter
-  [@specialized(Int) K, @specialized(Int,Double) V, @specialized(Int,Double) RV:Scalar]: CanMapValues[Counter[K, V], V, RV, Counter[K, RV]]
+  [/*@specialized(Int)*/ K, /*@specialized(Int,Double)*/ V, /*@specialized(Int,Double)*/ RV:Scalar]: CanMapValues[Counter[K, V], V, RV, Counter[K, RV]]
   = new CanMapValues[Counter[K,V],V,RV,Counter[K,RV]] {
     override def map(from : Counter[K,V], fn : (V=>RV)) = {
       val rv = Counter[K,RV]();

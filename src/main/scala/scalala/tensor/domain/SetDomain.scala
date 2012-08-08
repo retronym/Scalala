@@ -26,7 +26,7 @@ package domain;
  *
  * @author dramage
  */
-case class SetDomain[@specialized(Int,Long) A](set : scala.collection.Set[A])
+case class SetDomain[/*@specialized(Int,Long)*/ A](set : scala.collection.Set[A])
 extends Domain1[A] with Domain1Like[A,SetDomain[A]] {
 
   override def size =

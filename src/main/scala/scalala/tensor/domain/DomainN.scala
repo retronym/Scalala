@@ -26,7 +26,7 @@ package domain;
  *
  * @author dramage
  */
-case class DomainN[@specialized(Int) K](components : Seq[IterableDomain[K]])
+case class DomainN[/*@specialized(Int)*/ K](components : Seq[IterableDomain[K]])
 extends IterableDomain[Seq[K]] with IterableDomainLike[Seq[K],DomainN[K]] {
 
   override def size =

@@ -36,7 +36,7 @@ trait CanCopy[T] {
 
 object CanCopy {
 
-  class OpArray[@specialized V:ClassManifest:Scalar]
+  class OpArray[/*@specialized*/ V:ClassManifest:Scalar]
   extends CanCreateZerosLike[Array[V],Array[V]] {
     override def apply(from : Array[V]) = {
       Array.fill(from.length)(implicitly[Scalar[V]].zero);

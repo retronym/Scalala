@@ -32,7 +32,7 @@ import scalala.operators._;
  *
  * @author dramage
  */
-trait VectorColLike[@specialized(Int,Long,Float,Double) V, +This<:VectorCol[V]]
+trait VectorColLike[/*@specialized(Int,Long,Float,Double)*/ V, +This<:VectorCol[V]]
 extends tensor.VectorColLike[V,This]
 with Tensor1ColLike[Int,V,IndexDomain,This] with VectorLike[V,This] {
 
@@ -45,7 +45,7 @@ with Tensor1ColLike[Int,V,IndexDomain,This] with VectorLike[V,This] {
  *
  * @author dramage
  */
-trait VectorCol[@specialized(Int,Long,Float,Double) V]
+trait VectorCol[/*@specialized(Int,Long,Float,Double)*/ V]
 extends tensor.VectorCol[V] with Tensor1Col[Int,V] with Vector[V]
 with VectorColLike[V,VectorCol[V]];
 

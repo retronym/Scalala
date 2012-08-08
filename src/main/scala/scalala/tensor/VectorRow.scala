@@ -35,7 +35,7 @@ import dense.{DenseVector,DenseVectorRow};
  *
  * @author dramage
  */
-trait VectorRowLike[@specialized(Int,Long,Float,Double) V, +This<:VectorRow[V]]
+trait VectorRowLike[/*@specialized(Int,Long,Float,Double)*/ V, +This<:VectorRow[V]]
 extends VectorLike[V,This] with Tensor1RowLike[Int,V,IndexDomain,This] {
   
   override def t : VectorCol[V] =
@@ -95,7 +95,7 @@ extends VectorLike[V,This] with Tensor1RowLike[Int,V,IndexDomain,This] {
  *
  * @author dramage
  */
-trait VectorRow[@specialized(Int,Long,Float,Double) V]
+trait VectorRow[/*@specialized(Int,Long,Float,Double)*/ V]
 extends Vector[V] with Tensor1Row[Int,V] with VectorRowLike[V,VectorRow[V]];
 
 object VectorRow {

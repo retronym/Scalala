@@ -35,7 +35,7 @@ import tensor.Counter2.Curried
  * @author dlwh
  */
 trait CRSTensor2Like
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V,
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V,
  +M1[VV] <: Curried[scala.collection.Map,K1]#Result[VV],
  +T <: Tensor1[K2,V],
  +This<:CRSTensor2[K1,K2,V,T]]
@@ -112,7 +112,7 @@ extends Tensor2Like[K1,K2,V,SetDomain[K1],SetDomain[K2],Domain2[K1,K2],Domain2[K
  * @author dlwh
  */
 trait CRSTensor2
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V, +T<:Tensor1[K2,V]]
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V, +T<:Tensor1[K2,V]]
 extends Tensor2[K1,K2,V] with CRSTensor2Like[K1,K2,V,Curried[scala.collection.Map,K1]#Result,T,CRSTensor2[K1,K2,V,T]];
 
 object CRSTensor2 {

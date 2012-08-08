@@ -99,7 +99,7 @@ import scalala.scalar.Scalar;
 // 
 // println("object RichTuples {");
 // for (n <- 2 to 22) {
-//   val tupArg = (1 to n).map((if (n <= 3) "@specialized V" else "V") + _).mkString(", ");
+//   val tupArg = (1 to n).map((if (n <= 3) "/*@specialized*/ V" else "V") + _).mkString(", ");
 //   val tupVal = (1 to n).map("V"+_).mkString(",");
 //   println(
 //     "  class RichTuple%d[%s](override val repr : (%s)) extends MutableNumericOps[(%s)];\n"
@@ -111,7 +111,7 @@ import scalala.scalar.Scalar;
 // println("trait RichTupleImplicits {");
 // println("  import RichTuples._");
 // for (n <- 2 to 22) {
-//   val tupArg = (1 to n).map((if (n <= 3) "@specialized V" else "V") + _).mkString(", ");
+//   val tupArg = (1 to n).map((if (n <= 3) "/*@specialized*/ V" else "V") + _).mkString(", ");
 //   val tupVal = (1 to n).map("V"+_).mkString(",");
 //   println(
 //     "  implicit def richTuple%d[%s](value : (%s)) = new RichTuple%d(value);\n"
@@ -870,9 +870,9 @@ trait BinaryTupleOps {
 }
 
 object RichTuples {
-  class RichTuple2[@specialized V1, @specialized V2](override val repr : (V1,V2)) extends MutableNumericOps[(V1,V2)];
+  class RichTuple2[/*@specialized*/ V1, /*@specialized*/ V2](override val repr : (V1,V2)) extends MutableNumericOps[(V1,V2)];
 
-  class RichTuple3[@specialized V1, @specialized V2, @specialized V3](override val repr : (V1,V2,V3)) extends MutableNumericOps[(V1,V2,V3)];
+  class RichTuple3[/*@specialized*/ V1, /*@specialized*/ V2, /*@specialized*/ V3](override val repr : (V1,V2,V3)) extends MutableNumericOps[(V1,V2,V3)];
 
   class RichTuple4[V1, V2, V3, V4](override val repr : (V1,V2,V3,V4)) extends MutableNumericOps[(V1,V2,V3,V4)];
 
@@ -918,9 +918,9 @@ object RichTuples {
 trait RichTupleImplicits {
   import RichTuples._;
   
-  implicit def richTuple2[@specialized V1, @specialized V2](value : (V1,V2)) = new RichTuple2(value);
+  implicit def richTuple2[/*@specialized*/ V1, /*@specialized*/ V2](value : (V1,V2)) = new RichTuple2(value);
 
-  implicit def richTuple3[@specialized V1, @specialized V2, @specialized V3](value : (V1,V2,V3)) = new RichTuple3(value);
+  implicit def richTuple3[/*@specialized*/ V1, /*@specialized*/ V2, /*@specialized*/ V3](value : (V1,V2,V3)) = new RichTuple3(value);
 
   implicit def richTuple4[V1, V2, V3, V4](value : (V1,V2,V3,V4)) = new RichTuple4(value);
 

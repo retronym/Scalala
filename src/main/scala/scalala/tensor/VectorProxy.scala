@@ -27,7 +27,7 @@ import domain.IndexDomain;
  *
  * @author dramage
  */
-trait VectorProxyLike[@specialized(Int,Long,Float,Double) V, Inner<:Vector[V], +This<:Vector[V]]
+trait VectorProxyLike[/*@specialized(Int,Long,Float,Double)*/ V, Inner<:Vector[V], +This<:Vector[V]]
 extends Tensor1ProxyLike[Int,V,IndexDomain,Inner,This] with VectorLike[V,This] {
   override def length = inner.length;
 }
@@ -37,5 +37,5 @@ extends Tensor1ProxyLike[Int,V,IndexDomain,Inner,This] with VectorLike[V,This] {
  *
  * @author dramage
  */
-trait VectorProxy[@specialized(Int,Long,Float,Double) V, Inner<:Vector[V]]
+trait VectorProxy[/*@specialized(Int,Long,Float,Double)*/ V, Inner<:Vector[V]]
 extends Tensor1Proxy[Int,V,Inner] with Vector[V] with VectorProxyLike[V,Inner,VectorProxy[V,Inner]];

@@ -32,7 +32,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait TensorViewLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D<:IterableDomain[K], +Coll <: Tensor[K,_],
  +This<:TensorView[K,V,Coll]]
 extends TensorLike[K,V,D,This] {
@@ -56,7 +56,7 @@ self =>
  * @author dramage
  */
 trait TensorView
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll <: Tensor[K,_]]
 extends Tensor[K,V]
 with TensorViewLike[K,V,IterableDomain[K],Coll,TensorView[K,V,Coll]];
@@ -65,7 +65,7 @@ with TensorViewLike[K,V,IterableDomain[K],Coll,TensorView[K,V,Coll]];
 object TensorView {
 
   trait IdentityViewLike
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +D<:IterableDomain[K],
    +Coll <: Tensor[K,V], +This <: IdentityView[K,V,Coll]]
   extends TensorViewLike[K,V,D,Coll,This] {
@@ -74,7 +74,7 @@ object TensorView {
   }
 
   trait IdentityView
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll <: Tensor[K,V]]
   extends TensorView[K,V,Coll]
   with IdentityViewLike[K,V,IterableDomain[K],Coll,IdentityView[K,V,Coll]];
@@ -86,8 +86,8 @@ object TensorView {
   extends IdentityView[K,V,Coll];
 
   trait TransformViewLike
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
-   @specialized(Int,Long,Float,Double,Boolean) O,
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ O,
    +D<:IterableDomain[K], +Coll <: Tensor[K,V],
    +This <: TransformView[K,V,O,Coll]]
   extends TensorViewLike[K,O,D,Coll,This] {
@@ -99,8 +99,8 @@ object TensorView {
   }
 
   trait TransformView
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
-   @specialized(Int,Long,Float,Double,Boolean) O, +Coll <: Tensor[K,V]]
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ O, +Coll <: Tensor[K,V]]
   extends TensorView[K,O,Coll]
   with TransformViewLike[K,V,O,IterableDomain[K],Coll,TransformView[K,V,O,Coll]]
 

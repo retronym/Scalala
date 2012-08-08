@@ -27,7 +27,7 @@ package generic;
  *
  * @author dramage
  */
-trait TensorBuilder[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,+To] {
+trait TensorBuilder[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,+To] {
   def update(key : K, value : V);
 
   def result : To;

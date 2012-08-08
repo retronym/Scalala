@@ -50,7 +50,7 @@ import java.util.Arrays
  * @author dlwh, dramage
  */
 @SerialVersionUID(1L)
-final class SparseArray[@specialized T]
+final class SparseArray[/*@specialized*/ T]
 (val length : Int, protected var index : Array[Int], protected var data : Array[T], protected var used : Int, initialActiveLength : Int)
 (implicit m : ClassManifest[T], df : DefaultArrayValue[T]) extends Serializable {
 
@@ -546,7 +546,7 @@ final class SparseArray[@specialized T]
 }
 
 object SparseArray extends SparseArrayOps {
-  def apply[@specialized T:ClassManifest:DefaultArrayValue](values : T*) = {
+  def apply[/*@specialized*/ T:ClassManifest:DefaultArrayValue](values : T*) = {
     val rv = new SparseArray[T](values.length);
     var i = 0;
     for (v <- values) {
@@ -566,7 +566,7 @@ object SparseArray extends SparseArrayOps {
    *
    * @author dramage
    */
-  def fill[@specialized T:ClassManifest:DefaultArrayValue](length : Int, initialActiveLength : Int = 3)(value : =>T) : SparseArray[T] = {
+  def fill[/*@specialized*/ T:ClassManifest:DefaultArrayValue](length : Int, initialActiveLength : Int = 3)(value : =>T) : SparseArray[T] = {
     if (value != implicitly[DefaultArrayValue[T]].value) {
       val rv = new SparseArray[T](length = length, initialActiveLength = length);
       var i = 0;
@@ -580,7 +580,7 @@ object SparseArray extends SparseArrayOps {
     }
   }
 
-  def create[@specialized T:ClassManifest:DefaultArrayValue](length : Int)(values : (Int,T)*) = {
+  def create[/*@specialized*/ T:ClassManifest:DefaultArrayValue](length : Int)(values : (Int,T)*) = {
     val rv = new SparseArray[T](length = length, initialActiveLength = values.length);
     for ((k,v) <- values) {
       rv(k) = v;
@@ -588,7 +588,7 @@ object SparseArray extends SparseArrayOps {
     rv;
   }
 
-  def tabulate[@specialized T:ClassManifest:DefaultArrayValue](length : Int, initialActiveLength : Int = 3)(fn : (Int => T)) = {
+  def tabulate[/*@specialized*/ T:ClassManifest:DefaultArrayValue](length : Int, initialActiveLength : Int = 3)(fn : (Int => T)) = {
     val rv = new SparseArray[T](length = length, initialActiveLength = initialActiveLength);
     var i = 0;
     while (i < length) {
@@ -1149,7 +1149,7 @@ trait SparseArrayOps extends LowPrioritySparseArrayOps {
  * 
  * @author dramage
  */
-sealed trait DefaultArrayValue[@specialized T] extends Serializable {
+sealed trait DefaultArrayValue[/*@specialized*/ T] extends Serializable {
   def value : T;
 }
 

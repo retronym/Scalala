@@ -25,7 +25,7 @@ package tensor;
  *
  * @author dramage
  */
-trait LiteralRow[-R, @specialized V] {
+trait LiteralRow[-R, /*@specialized*/ V] {
   def foreach[X](row : R, fn : ((Int,V) => X));
   def length(row : R) : Int;
 }

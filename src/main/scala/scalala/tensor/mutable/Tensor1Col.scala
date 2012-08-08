@@ -31,7 +31,7 @@ import scalala.scalar.Scalar;
  * @author dramage
  */
 trait Tensor1ColLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], +This<:Tensor1Col[K,V]]
 extends tensor.Tensor1ColLike[K,V,D,This] with Tensor1Like[K,V,D,This] {
 
@@ -45,7 +45,7 @@ extends tensor.Tensor1ColLike[K,V,D,This] with Tensor1Like[K,V,D,This] {
  * @author dramage
  */
 trait Tensor1Col
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends tensor.Tensor1Col[K,V] with Tensor1[K,V]
 with Tensor1ColLike[K,V,Domain1[K],Tensor1Col[K,V]];
 

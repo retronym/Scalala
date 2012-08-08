@@ -37,7 +37,7 @@ import java.util.Arrays
  * @author dramage
  */
 @SerialVersionUID(1)
-trait DenseVector[@specialized(Int,Long,Float,Double) V]
+trait DenseVector[/*@specialized(Int,Long,Float,Double)*/ V]
 extends mutable.Vector[V] with mutable.VectorLike[V,DenseVector[V]]
 with DenseArrayTensor[Int,V] with DenseArrayTensorLike[Int,V,IndexDomain,DenseVector[V]]
 { self =>
@@ -105,8 +105,8 @@ with DenseArrayTensor[Int,V] with DenseArrayTensorLike[Int,V,IndexDomain,DenseVe
 
 trait LowPriorityDenseImplicits {
   class CanJoinDenseWithNonDense[
-    @specialized(Int,Long,Float,Double) V1,
-    @specialized(Int,Long,Float,Double) V2,
+    /*@specialized(Int,Long,Float,Double)*/ V1,
+    /*@specialized(Int,Long,Float,Double)*/ V2,
     DV[V]<:DenseVector[V]] extends CanJoin[DV[V1], Vector[V2], Int, V1, V2] {
     def joinAll[RV](a: DV[V1], b: Vector[V2], fn: (Int, V1, V2) => RV) {
       a.checkDomain(b.domain)
@@ -143,15 +143,15 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
   // Generic optimized routines
   //
 
-  class GenericDenseVectorRowBase[@specialized V:Scalar:Manifest] {
+  class GenericDenseVectorRowBase[/*@specialized*/ V:Scalar:Manifest] {
     def create(length : Int) = new DenseVectorRow(new Array[V](length));
   }
 
-  class GenericDenseVectorColBase[@specialized V:Scalar:Manifest] {
+  class GenericDenseVectorColBase[/*@specialized*/ V:Scalar:Manifest] {
     def create(length : Int) = new DenseVectorCol(new Array[V](length));
   }
 
-  class GenericDenseVectorBase[@specialized V:Scalar:Manifest] {
+  class GenericDenseVectorBase[/*@specialized*/ V:Scalar:Manifest] {
     def create(length : Int) = new DenseVectorCol(new Array[V](length));
   }
 
@@ -159,8 +159,8 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
 
   /** Optimized base class for joining two dense tensors. */
   class CanJoinDenseVectors[
-   @specialized(Int,Long,Float,Double) V1,
-   @specialized(Int,Long,Float,Double) V2,
+   /*@specialized(Int,Long,Float,Double)*/ V1,
+   /*@specialized(Int,Long,Float,Double)*/ V2,
    DV[V]<:DenseVector[V]]
   extends CanJoin[DV[V1], DV[V2], Int, V1, V2] {
     override def joinAll[RV](a : DV[V1], b : DV[V2], fn : (Int,V1,V2)=>RV) = {
@@ -196,7 +196,7 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
 
   /** Optimized base class for mapping a dense tensor. */
   trait CanMapValuesDenseVector
-  [@specialized V, @specialized RV, DV[V]<:DenseVector[V]]
+  [/*@specialized*/ V, /*@specialized*/ RV, DV[V]<:DenseVector[V]]
   extends CanMapValues[DV[V],V,RV,DV[RV]] {
     def create(length : Int) : DV[RV];
 
@@ -218,23 +218,23 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
   }
 
   /** Optimized base class for mapping dense columns. */
-  implicit def canMapValuesDenseVectorCols[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canMapValuesDenseVectorCols[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapValuesDenseVector[V, RV, DenseVectorCol] =
     new GenericDenseVectorColBase with CanMapValuesDenseVector[V, RV, DenseVectorCol];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canMapValuesDenseVectorRows[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canMapValuesDenseVectorRows[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapValuesDenseVector[V, RV, DenseVectorRow] =
     new GenericDenseVectorRowBase with CanMapValuesDenseVector[V, RV, DenseVectorRow];
 
   /** optimized for just mapping densevectors */
-  implicit def canMapValuesDenseVectors[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canMapValuesDenseVectors[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapValuesDenseVector[V, RV, DenseVector] =
     new GenericDenseVectorColBase with CanMapValuesDenseVector[V, RV, DenseVector];
 
   /** Optimized base class for mapping a dense tensor. */
   trait CanZipMapValuesDenseVector
-  [@specialized V, @specialized RV, DV[V]<:DenseVector[V]]
+  [/*@specialized*/ V, /*@specialized*/ RV, DV[V]<:DenseVector[V]]
     extends CanZipMapValues[DV[V],V,RV,DV[RV]] {
     def create(length : Int) : DV[RV];
 
@@ -252,17 +252,17 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
   }
 
   /** Optimized base class for mapping dense columns. */
-  implicit def canZipMapValuesDenseVectorCols[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canZipMapValuesDenseVectorCols[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanZipMapValuesDenseVector[V, RV, DenseVectorCol] =
     new GenericDenseVectorColBase with CanZipMapValuesDenseVector[V, RV, DenseVectorCol];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canZipMapValuesDenseVectorRows[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canZipMapValuesDenseVectorRows[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanZipMapValuesDenseVector[V, RV, DenseVectorRow] =
     new GenericDenseVectorRowBase with CanZipMapValuesDenseVector[V, RV, DenseVectorRow];
 
   /** optimized for just mapping densevectors */
-  implicit def canZipMapValuesDenseVectors[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canZipMapValuesDenseVectors[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanZipMapValuesDenseVector[V, RV, DenseVector] =
     new GenericDenseVectorColBase with CanZipMapValuesDenseVector[V, RV, DenseVector];
 
@@ -270,7 +270,7 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
 
   /** Optimized base class for mapping a dense tensor. */
   trait CanMapKeyValuePairsDenseVector
-  [@specialized V, @specialized RV, DV[V]<:DenseVector[V]]
+  [/*@specialized*/ V, /*@specialized*/ RV, DV[V]<:DenseVector[V]]
   extends CanMapKeyValuePairs[DV[V],Int,V,RV,DV[RV]] {
     def create(length : Int) : DV[RV];
 
@@ -292,67 +292,67 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
   }
 
   /** Optimized base class for mapping dense columns. */
-  implicit def canMapKeyValuePairsDenseVectorCols[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canMapKeyValuePairsDenseVectorCols[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapKeyValuePairsDenseVector[V, RV, DenseVectorCol] =
   new GenericDenseVectorColBase with CanMapKeyValuePairsDenseVector[V, RV, DenseVectorCol];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canMapKeyValuePairsDenseVectorRows[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canMapKeyValuePairsDenseVectorRows[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapKeyValuePairsDenseVector[V, RV, DenseVectorRow] =
   new GenericDenseVectorRowBase with CanMapKeyValuePairsDenseVector[V, RV, DenseVectorRow];
 
-    implicit def canMapKeyValuePairsDenseVector[@specialized V, @specialized RV:Scalar:Manifest]
+    implicit def canMapKeyValuePairsDenseVector[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanMapKeyValuePairsDenseVector[V, RV, DenseVector] =
   new GenericDenseVectorColBase with CanMapKeyValuePairsDenseVector[V, RV, DenseVector];
 
   /** Optimized base class for creating zeros */
   trait CanCreateZerosDenseVector
-  [@specialized V, @specialized RV, DV[V]<:DenseVector[V]]
+  [/*@specialized*/ V, /*@specialized*/ RV, DV[V]<:DenseVector[V]]
     extends CanCreateZerosLike[DV[V],DV[RV]] {
     def create(length : Int) : DV[RV];
     def apply(v1: DV[V]) = create(v1.length);
   }
 
 
-  implicit def canCreateZerosDenseVector[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canCreateZerosDenseVector[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanCreateZerosDenseVector[V, RV, DenseVector] =
     new GenericDenseVectorColBase with CanCreateZerosDenseVector[V, RV, DenseVector];
 
     /** Optimized base class for mapping dense columns. */
-  implicit def canCreateZerosDenseVectorCols[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canCreateZerosDenseVectorCols[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanCreateZerosDenseVector[V, RV, DenseVectorCol] =
   new GenericDenseVectorColBase with CanCreateZerosDenseVector[V, RV, DenseVectorCol];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canCreateZerosDenseVectorRows[@specialized V, @specialized RV:Scalar:Manifest]
+  implicit def canCreateZerosDenseVectorRows[/*@specialized*/ V, /*@specialized*/ RV:Scalar:Manifest]
   : CanCreateZerosDenseVector[V, RV, DenseVectorRow] =
   new GenericDenseVectorRowBase with CanCreateZerosDenseVector[V, RV, DenseVectorRow];
 
 
   /** Optimized base class for copying zeros */
-  class CanCopyDenseVectorRow[@specialized V:Scalar:ClassManifest] extends CanCopy[DenseVectorRow[V]] {
+  class CanCopyDenseVectorRow[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[DenseVectorRow[V]] {
     def apply(v1: DenseVectorRow[V]) = {
       new DenseVectorRow(Array.tabulate(v1.length)(i => v1(i)));
     }
   }
 
-  class CanCopyDenseVector[@specialized V:Scalar:ClassManifest] extends CanCopy[DenseVector[V]] {
+  class CanCopyDenseVector[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[DenseVector[V]] {
     def apply(v1: DenseVector[V]) = {
       new DenseVectorCol(Array.tabulate(v1.length)(i => v1(i)));
     }
   }
 
-  class CanCopyDenseVectorCol[@specialized V:Scalar:ClassManifest] extends CanCopy[DenseVectorCol[V]] {
+  class CanCopyDenseVectorCol[/*@specialized*/ V:Scalar:ClassManifest] extends CanCopy[DenseVectorCol[V]] {
     def apply(v1: DenseVectorCol[V]) = {
       new DenseVectorCol(Array.tabulate(v1.length)(i => v1(i)));
     }
   }
 
     /** Optimized base class for mapping dense columns. */
-  implicit def canCopyDenseVectorCols[@specialized V:Scalar:Manifest] = new CanCopyDenseVectorCol[V];
+  implicit def canCopyDenseVectorCols[/*@specialized*/ V:Scalar:Manifest] = new CanCopyDenseVectorCol[V];
 
   /** Optimized base class for mapping dense rows. */
-  implicit def canCopyDenseVectorRows[@specialized V:Scalar:Manifest] = new CanCopyDenseVectorRow[V];
+  implicit def canCopyDenseVectorRows[/*@specialized*/ V:Scalar:Manifest] = new CanCopyDenseVectorRow[V];
 
 
 
@@ -461,7 +461,7 @@ object DenseVector extends DenseVectorConstructors with LowPriorityDenseImplicit
  *
  * @author dramage
  */
-final class DenseVectorRow[@specialized(Int,Long,Float,Double) V]
+final class DenseVectorRow[/*@specialized(Int,Long,Float,Double)*/ V]
 (override final val data : Array[V], override final val offset : Int,
  override val stride : Int, override val length : Int)
 (implicit override val scalar : Scalar[V])
@@ -503,7 +503,7 @@ extends DenseVector[V] with mutable.VectorRow[V] with mutable.VectorRowLike[V,De
  *
  * @author dramage
  */
-final class DenseVectorCol[@specialized(Int,Long,Float,Double) V]
+final class DenseVectorCol[/*@specialized(Int,Long,Float,Double)*/ V]
 (override val data : Array[V], override val offset : Int,
  override val stride : Int, override val length : Int)
 (implicit override val scalar : Scalar[V])
@@ -549,12 +549,12 @@ trait CommonDenseVectorConstructors [+This[_] <: DenseVector[_]] {
   /**
    * Constructs a DenseVector from the given values.
    */
-  def apply[@specialized V: Scalar](values: Array[V]): This[V]
+  def apply[/*@specialized*/ V: Scalar](values: Array[V]): This[V]
 
   /**
    * Constructs a DenseVector from the given values.
    */
-  def apply[@specialized V: Scalar](values: V*): This[V] = {
+  def apply[/*@specialized*/ V: Scalar](values: V*): This[V] = {
     implicit val mf = implicitly[Scalar[V]].manifest
     apply(values.toArray)
   }
@@ -562,7 +562,7 @@ trait CommonDenseVectorConstructors [+This[_] <: DenseVector[_]] {
   /**
    * Constructs a DenseVector for the given IndexDomain.
    */
-  def apply[@specialized V: Scalar](domain: IndexDomain): This[V] =
+  def apply[/*@specialized*/ V: Scalar](domain: IndexDomain): This[V] =
     zeros(domain.size)
 
   /**
@@ -656,7 +656,7 @@ object DenseVectorRow extends CommonDenseVectorConstructors[DenseVectorRow] {
   /**
    * {@inheritDoc}
    */
-  override def apply[@specialized V: Scalar](values: Array[V]): DenseVectorRow[V] =
+  override def apply[/*@specialized*/ V: Scalar](values: Array[V]): DenseVectorRow[V] =
     new DenseVectorRow[V](values)
 
   /**
@@ -695,7 +695,7 @@ trait DenseVectorColConstructors extends CommonDenseVectorConstructors[DenseVect
   /**
    * {@inheritDoc}
    */
-  override def apply[@specialized V: Scalar](values: Array[V]): DenseVectorCol[V] =
+  override def apply[/*@specialized*/ V: Scalar](values: Array[V]): DenseVectorCol[V] =
     new DenseVectorCol[V](values)
 
   /**

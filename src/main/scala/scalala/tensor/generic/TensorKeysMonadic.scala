@@ -31,7 +31,7 @@ import scalala.generic.collection._;
  * @author dramage
  */
 trait TensorKeysMonadic
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +This<:Tensor[K,V]] {
   
   def repr : This;
@@ -60,7 +60,7 @@ trait TensorKeysMonadic
 object TensorKeysMonadic {
   /** Filtered view of the keys in a Tensor.  Does not support map. */
   class Filtered
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V, +This<:Tensor[K,V]]
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V, +This<:Tensor[K,V]]
   (val repr : This, p : K=>Boolean) {
     def foreach[U](fn : K => U) =
       repr.foreachKey(k => if (p(k)) fn(k));

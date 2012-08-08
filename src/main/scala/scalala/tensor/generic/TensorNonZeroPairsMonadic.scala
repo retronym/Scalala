@@ -31,7 +31,7 @@ import scalala.generic.collection._;
  * @author dramage
  */
 trait TensorNonZeroPairsMonadic
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +This<:Tensor[K,V]] { self =>
 
   /** Underlying tensor. */
@@ -66,7 +66,7 @@ trait TensorNonZeroPairsMonadic
 object TensorNonZeroPairsMonadic {
   /** Filtered view of the pairs in a Tensor.  Does not support map. */
   class Filtered
-  [@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V, +This<:Tensor[K,V]]
+  [/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V, +This<:Tensor[K,V]]
   (val repr : This, p : ((K,V))=>Boolean) {
     def foreach[U](fn : ((K,V)) => U) =
       repr.foreachNonZeroPair((k,v) => if (p((k,v))) fn((k,v)));

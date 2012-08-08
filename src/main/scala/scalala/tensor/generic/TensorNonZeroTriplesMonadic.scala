@@ -33,7 +33,7 @@ import operators.HasValuesMonadic
  * @author dramage
  */
 trait TensorNonZeroTriplesMonadic
-[@specialized(Int,Long) K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V,
  +This<:Tensor2[K1,K2,V]] {
 
   /** Underlying tensor. */
@@ -68,7 +68,7 @@ trait TensorNonZeroTriplesMonadic
 object TensorNonZeroTriplesMonadic {
   /** Filtered view of the Triples in a Tensor.  Does not support map. */
   class Filtered
-  [@specialized(Int,Long) K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V, +This<:Tensor2[K1,K2,V]]
+  [/*@specialized(Int,Long)*/ K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V, +This<:Tensor2[K1,K2,V]]
   (val repr : This, p : ((K1,K2,V))=>Boolean) {
     def foreach[U](fn : ((K1,K2,V)) => U) =
       repr.foreachNonZeroTriple((k1,k2,v) => if (p((k1,k2,v))) fn((k1,k2,v)));

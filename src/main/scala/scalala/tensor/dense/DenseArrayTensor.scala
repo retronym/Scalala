@@ -34,7 +34,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait DenseArrayTensorLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D<:IterableDomain[K],
  +This<:DenseArrayTensor[K,V]]
 extends mutable.TensorLike[K,V,D,This] {
@@ -59,6 +59,6 @@ extends mutable.TensorLike[K,V,D,This] {
  * @author dramage
  */
 trait DenseArrayTensor
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends mutable.Tensor[K,V]
 with DenseArrayTensorLike[K,V,IterableDomain[K],DenseArrayTensor[K,V]];

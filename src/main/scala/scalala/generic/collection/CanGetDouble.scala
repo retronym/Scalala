@@ -26,7 +26,7 @@ package collection;
  *
  * @author dramage
  */
-trait CanGetDouble[-Coll, @specialized(Int,Long) -K] {
+trait CanGetDouble[-Coll, /*@specialized(Int,Long)*/ -K] {
   def apply(coll : Coll, key : K) : Double;
 }
 
@@ -48,10 +48,10 @@ object CanGetDouble {
   implicit object OpArrayD extends Op[Array[Double],Int]
   { override def apply(coll : Array[Double], key : Int) = coll(key); }
 
-  implicit def opIndexedSeq[@specialized V](implicit cv : V => Double) =
+  implicit def opIndexedSeq[/*@specialized*/ V](implicit cv : V => Double) =
     new OpIndexedSeq[V];
 
-  class OpIndexedSeq[@specialized V](implicit cv : V => Double) extends CanGetDouble[IndexedSeq[V], Int] {
+  class OpIndexedSeq[/*@specialized*/ V](implicit cv : V => Double) extends CanGetDouble[IndexedSeq[V], Int] {
     def apply(coll : IndexedSeq[V], key : Int) = coll(key);
   }
 

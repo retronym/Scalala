@@ -28,7 +28,7 @@ package domain;
  *
  * @author dramage
  */
-trait IterableDomainLike[@specialized(Int,Long) A, +This<:IterableDomain[A]]
+trait IterableDomainLike[/*@specialized(Int,Long)*/ A, +This<:IterableDomain[A]]
 extends DomainLike[A,This] with Iterable[A] { outer =>
   override def repr: This = this.asInstanceOf[This];
   /** Applies the given function to every element of the domain. */
@@ -76,6 +76,6 @@ extends DomainLike[A,This] with Iterable[A] { outer =>
  *
  * @author dramage
  */
-trait IterableDomain[@specialized(Int,Long) A]
+trait IterableDomain[/*@specialized(Int,Long)*/ A]
 extends Domain[A] with IterableDomainLike[A,IterableDomain[A]];
 

@@ -36,7 +36,7 @@ import operators._
  * @author dramage
  */
 trait TensorLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D<:IterableDomain[K], +Repr<:Tensor[K,V]]
 extends tensor.TensorLike[K, V, D, Repr]
 with operators.MutableNumericOps[Repr] { self =>
@@ -94,7 +94,7 @@ with operators.MutableNumericOps[Repr] { self =>
  * @author dramage
  */
 trait Tensor
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends tensor.Tensor[K,V] with TensorLike[K,V,IterableDomain[K],Tensor[K,V]];
 
 object Tensor extends TensorImplicitsLevel1 {

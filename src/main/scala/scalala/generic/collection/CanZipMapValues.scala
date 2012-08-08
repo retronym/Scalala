@@ -32,7 +32,7 @@ import tensor.domain.CanGetDomain
  *
  * @author dlwh
  */
-trait CanZipMapValues[From, @specialized A, @specialized B, +To] {
+trait CanZipMapValues[From, /*@specialized*/ A, /*@specialized*/ B, +To] {
   /** Maps all corresponding values from the two collection. */
   def map(from : From, from2: From, fn : (A,A)=>B) : To;
 }
@@ -44,7 +44,7 @@ object CanZipMapValues {
   // Arrays
   //
 
-  class OpArray[@specialized A, @specialized B: ClassManifest]
+  class OpArray[/*@specialized*/ A, /*@specialized*/ B: ClassManifest]
     extends Op[Array[A], A, B, Array[B]] {
 
     /**Maps all values from the given collection. */
@@ -60,7 +60,7 @@ object CanZipMapValues {
   }
 
 
-  implicit def opArray[@specialized A, @specialized B: ClassManifest] =
+  implicit def opArray[/*@specialized*/ A, /*@specialized*/ B: ClassManifest] =
     new OpArray[A, B];
 
   implicit object OpArrayII extends OpArray[Int, Int];

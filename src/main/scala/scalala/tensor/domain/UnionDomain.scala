@@ -26,7 +26,7 @@ package domain;
  *
  * @author dramage
  */
-trait UnionDomainLike[@specialized(Int,Long) A, +This<:IterableDomain[A]]
+trait UnionDomainLike[/*@specialized(Int,Long)*/ A, +This<:IterableDomain[A]]
 extends IterableDomainLike[A, This] {
   def a : IterableDomain[A];
   def b : IterableDomain[A];

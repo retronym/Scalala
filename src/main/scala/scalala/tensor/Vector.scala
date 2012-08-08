@@ -31,7 +31,7 @@ import dense.DenseVector;
  *
  * @author dramage
  */
-trait VectorLike[@specialized(Int,Long,Float,Double) V, +This<:Vector[V]]
+trait VectorLike[/*@specialized(Int,Long,Float,Double)*/ V, +This<:Vector[V]]
 extends Tensor1Like[Int,V,IndexDomain,This] { self =>
 
   /** Returns the number of elements in the domain of this vector. Same as size. */
@@ -99,13 +99,13 @@ extends Tensor1Like[Int,V,IndexDomain,This] { self =>
  *
  * @author dramage
  */
-trait Vector[@specialized(Int,Long,Float,Double) V]
+trait Vector[/*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor1[Int,V]
 with VectorLike[V,Vector[V]];
 
 
 object Vector {
-  class Filtered[@specialized(Int,Long,Float,Double) V, +This<:Vector[V]]
+  class Filtered[/*@specialized(Int,Long,Float,Double)*/ V, +This<:Vector[V]]
   (inner : This, filterFn : V => Boolean) {
     def size = {
       var rv = 0;

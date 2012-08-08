@@ -33,7 +33,7 @@ import scalala.generic.collection._;
  * @author dramage
  */
 trait CounterLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +M<:scala.collection.mutable.Map[K,V],
  +This<:Counter[K,V]]
 extends tensor.CounterLike[K,V,M,This] with Tensor1Like[K,V,SetDomain[K],This] { self =>
@@ -43,12 +43,12 @@ extends tensor.CounterLike[K,V,M,This] with Tensor1Like[K,V,SetDomain[K],This] {
 }
 
 trait Counter
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends tensor.Counter[K,V] with Tensor1[K,V]
 with CounterLike[K,V,scala.collection.mutable.Map[K,V],Counter[K,V]];
 
 object Counter {
-  class Impl[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+  class Impl[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
   (override val data : scala.collection.mutable.Map[K,V])
   (implicit override final val scalar : Scalar[V])
   extends Counter[K,V] with Serializable;
@@ -84,7 +84,7 @@ object Counter {
 //  implicit def opZeros[K,V:Scalar] = CanCreateZerosLike.opMapValues[Counter[K,V],V,Counter[K,V]];
 
   implicit def CanMapValuesCounter
-  [@specialized(Int) K, @specialized(Int,Double) V, @specialized(Int,Double) RV:Scalar]: CanMapValues[Counter[K, V], V, RV, Counter[K, RV]]
+  [/*@specialized(Int)*/ K, /*@specialized(Int,Double)*/ V, /*@specialized(Int,Double)*/ RV:Scalar]: CanMapValues[Counter[K, V], V, RV, Counter[K, RV]]
   = new CanMapValues[Counter[K,V],V,RV,Counter[K,RV]] {
     override def map(from : Counter[K,V], fn : (V=>RV)) = {
       val rv = Counter[K,RV]();

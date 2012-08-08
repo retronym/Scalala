@@ -30,8 +30,8 @@ import domain._;
  * @author dramage
  */
 trait DomainFunction
-[@specialized(Int,Long,Float,Double) K,
- @specialized(Int,Long,Float,Double,Boolean) +V,
+[/*@specialized(Int,Long,Float,Double)*/ K,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ +V,
  +D <: Domain[K]]
 extends PartialFunction[K, V] {
   

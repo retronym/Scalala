@@ -28,7 +28,7 @@ import scalala.collection.sparse.SparseArray;
  *
  * @author dramage
  */
-trait CanGetActiveValues[-Coll, @specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V] {
+trait CanGetActiveValues[-Coll, /*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V] {
   def apply(coll : Coll) : Iterator[(K,V)];
 }
 

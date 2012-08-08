@@ -34,7 +34,7 @@ import scalala.generic.collection._;
  * @author dramage
  */
 trait Tensor1Like
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], +This<:Tensor1[K,V]]
 extends TensorLike[K,V,D,This] { self =>
 
@@ -103,7 +103,7 @@ extends TensorLike[K,V,D,This] { self =>
  *
  * @author dramage
  */
-trait Tensor1[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+trait Tensor1[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor[K,V] with Tensor1Like[K,V,Domain1[K],Tensor1[K,V]];
 
 object Tensor1 {

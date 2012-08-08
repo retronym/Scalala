@@ -26,15 +26,15 @@ package collection;
  *
  * @author dramage
  */
-trait CanGetValue[-Coll, @specialized(Int,Long) -K, @specialized(Int,Long,Float,Double) +V] {
+trait CanGetValue[-Coll, /*@specialized(Int,Long)*/ -K, /*@specialized(Int,Long,Float,Double)*/ +V] {
   def apply(coll : Coll, key : K) : V;
 }
 
 object CanGetValue {
-  implicit def opArray[@specialized V] =
+  implicit def opArray[/*@specialized*/ V] =
     new OpArray[V];
 
-  class OpArray[@specialized V] extends CanGetValue[Array[V], Int, V] {
+  class OpArray[/*@specialized*/ V] extends CanGetValue[Array[V], Int, V] {
     def apply(coll : Array[V], key : Int) = coll(key);
   }
 
@@ -46,10 +46,10 @@ object CanGetValue {
   implicit object OpArrayD extends OpArray[Double];
   implicit object OpArrayB extends OpArray[Boolean];
 
-  implicit def opIndexedSeq[@specialized V] =
+  implicit def opIndexedSeq[/*@specialized*/ V] =
     new OpIndexedSeq[V];
 
-  class OpIndexedSeq[@specialized V] extends CanGetValue[IndexedSeq[V], Int, V] {
+  class OpIndexedSeq[/*@specialized*/ V] extends CanGetValue[IndexedSeq[V], Int, V] {
     def apply(coll : IndexedSeq[V], key : Int) = coll(key);
   }
 

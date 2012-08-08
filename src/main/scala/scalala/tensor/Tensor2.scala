@@ -39,8 +39,8 @@ import generic.TensorTriplesMonadic;
  * @author dramage
  */
 trait Tensor2Like
-[@specialized(Int) K1, @specialized(Int) K2,
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +D1<:Domain1[K1],
  +D2<:Domain1[K2],
  +D<:Domain2[K1,K2],
@@ -141,8 +141,8 @@ with operators.MatrixOps[This] { self =>
  * @author dramage
  */
 trait Tensor2
-[@specialized(Int) K1, @specialized(Int) K2,
- @specialized(Int,Long,Float,Double,Boolean) V]
+[/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends Tensor[(K1,K2),V]
 with Tensor2Like[K1,K2,V,Domain1[K1],Domain1[K2],Domain2[K1,K2],Domain2[K2,K1],Tensor2[K1,K2,V]]
 
@@ -171,10 +171,10 @@ object Tensor2 {
   }
 
   implicit def canMulTensor2ByTensor1Col[
-    @specialized(Int) K1, @specialized(Int) K2,
-    @specialized(Int,Double) V1, K, AR, ADomainRow, ADomainCol, ADomain,
-    @specialized(Int,Double) V2, V, BD,
-    @specialized(Int,Double) RV, That]
+    /*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+    /*@specialized(Int,Double)*/ V1, K, AR, ADomainRow, ADomainCol, ADomain,
+    /*@specialized(Int,Double)*/ V2, V, BD,
+    /*@specialized(Int,Double)*/ RV, That]
   (implicit
    viewA : K=>Tensor2[K1,K2,V1],
    sliceA : CanSliceRow[K,K1,AR],
@@ -196,10 +196,10 @@ object Tensor2 {
   }
 
   implicit def canMulMatrixByMatrix[
-   @specialized(Int) K1, @specialized(Int) K2, @specialized(Int) K3,
-   @specialized(Int,Double) V1, A, ARow, ADomainRow, InnerDomain, ADomain,
-   @specialized(Int,Double) V2, B, BCol, BDomainCol, BDomain,
-   @specialized(Int,Double) RV, RDomain, That]
+   /*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2, /*@specialized(Int)*/ K3,
+   /*@specialized(Int,Double)*/ V1, A, ARow, ADomainRow, InnerDomain, ADomain,
+   /*@specialized(Int,Double)*/ V2, B, BCol, BDomainCol, BDomain,
+   /*@specialized(Int,Double)*/ RV, RDomain, That]
   (implicit
     viewA : A=>Tensor2[K1,K2,V1],
     sliceA : CanSliceRow[A,K1,ARow],
@@ -257,8 +257,8 @@ object Tensor2 {
   extends ColSlice[K1,K2,V,Coll];
 
   trait MatrixSliceLike
-  [@specialized(Int) K1, @specialized(Int) K2,
-   @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int)*/ K1, /*@specialized(Int)*/ K2,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +D1<:Domain1[K1],
    +D2<:Domain1[K2],
    +D<:Domain2[K1,K2],
@@ -279,8 +279,8 @@ object Tensor2 {
   }
 
   trait MatrixSlice
-  [@specialized(Int,Long) K1, @specialized(Int,Long) K2,
-   @specialized(Int,Long,Float,Double,Boolean) V,
+  [/*@specialized(Int,Long)*/ K1, /*@specialized(Int,Long)*/ K2,
+   /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Tensor2[K1,K2,V]]
   extends TensorSlice[(K1,K2),(Int,Int),V,Coll]
   with Matrix[V]

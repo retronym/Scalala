@@ -37,7 +37,7 @@ trait CanCreateZerosLike[-From, +To] {
 
 object CanCreateZerosLike {
 
-  class OpArray[@specialized V:ClassManifest:Scalar]
+  class OpArray[/*@specialized*/ V:ClassManifest:Scalar]
   extends CanCreateZerosLike[Array[V],Array[V]] {
     override def apply(from : Array[V]) = {
       Array.fill(from.length)(implicitly[Scalar[V]].zero);

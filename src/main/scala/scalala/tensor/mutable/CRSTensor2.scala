@@ -38,7 +38,7 @@ import scala.collection.mutable.HashMap
  * @author dlwh
  */
 trait CRSTensor2Like
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V,
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V,
  +M1[VV]<:Curried[scala.collection.mutable.Map,K1]#Result[VV],
  +T<:scalala.tensor.mutable.Tensor1[K2,V],
  +This<:CRSTensor2[K1,K2,V,T]]
@@ -53,12 +53,12 @@ extends tensor.CRSTensor2Like[K1,K2,V,M1,T,This] with Tensor2Like[K1,K2,V,SetDom
 }
 
 trait CRSTensor2
-[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V, +T<:Tensor1[K2,V]]
+[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V, +T<:Tensor1[K2,V]]
 extends tensor.CRSTensor2[K1,K2,V,T] with Tensor2[K1,K2,V]
 with CRSTensor2Like[K1,K2, V,Curried[scala.collection.mutable.Map,K1]#Result,T,CRSTensor2[K1,K2,V,T]];
 
 object CRSTensor2 {
-  class Impl[K1, @specialized(Int,Long) K2, @specialized(Int,Long,Float,Double) V, T<:Tensor1[K2,V]]
+  class Impl[K1, /*@specialized(Int,Long)*/ K2, /*@specialized(Int,Long,Float,Double)*/ V, T<:Tensor1[K2,V]]
   (override val data : scala.collection.mutable.Map[K1,T],
    override val k2domain: Domain1[K2])
   (implicit override val scalar : Scalar[V], zeros: CanCreateZerosLike[T,T])

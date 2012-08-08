@@ -29,7 +29,7 @@ import domain.DomainN;
  *
  * @author dramage
  */
-trait TensorNLike[@specialized(Int) K, @specialized(Int,Long,Float,Double,Boolean) V, +This<:TensorN[K,V]]
+trait TensorNLike[/*@specialized(Int)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V, +This<:TensorN[K,V]]
 extends TensorLike[Seq[K],V,DomainN[K],This] {
   /** Gets the value indexed by (i,j). */
   /* final */ def apply(k : K*) : V =
@@ -42,7 +42,7 @@ extends TensorLike[Seq[K],V,DomainN[K],This] {
   }
 }
 
-trait TensorN[@specialized(Int) K, @specialized(Int,Long,Float,Double,Boolean) V]
+trait TensorN[/*@specialized(Int)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V]
 extends Tensor[Seq[K],V] with TensorNLike[K,V,TensorN[K,V]]
 
 object TensorN;

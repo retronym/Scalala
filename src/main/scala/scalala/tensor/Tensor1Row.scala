@@ -33,7 +33,7 @@ import scalala.operators._;
  * @author dramage
  */
 trait Tensor1RowLike
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V,
  +D<:Domain1[K], +This<:Tensor1Row[K,V]]
 extends Tensor1Like[K,V,D,This] with operators.RowOps[This] { self =>
   override def newBuilder[K2,V2:Scalar](domain : IterableDomain[K2]) = domain match {
@@ -54,7 +54,7 @@ extends Tensor1Like[K,V,D,This] with operators.RowOps[This] { self =>
  *
  * @author dramage
  */
-trait Tensor1Row[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double) V]
+trait Tensor1Row[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor1[K,V] with Tensor1RowLike[K,V,Domain1[K],Tensor1Row[K,V]];
 
 object Tensor1Row {

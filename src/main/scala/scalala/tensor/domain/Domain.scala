@@ -27,7 +27,7 @@ package domain;
  *
  * @author dramage
  */
-trait DomainLike[@specialized(Int,Long,Float,Double) A, +This<:Domain[A]]
+trait DomainLike[/*@specialized(Int,Long,Float,Double)*/ A, +This<:Domain[A]]
 extends (A => Boolean) {
 
   def repr : This =
@@ -45,7 +45,7 @@ extends (A => Boolean) {
  *
  * @author dramage
  */
-trait Domain[@specialized(Int,Long,Float,Double) A]
+trait Domain[/*@specialized(Int,Long,Float,Double)*/ A]
 extends DomainLike[A, Domain[A]];
 
 /**

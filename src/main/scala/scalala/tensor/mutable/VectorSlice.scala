@@ -33,8 +33,8 @@ import scalala.operators._;
  * @author dramage
  */
 trait VectorSliceLike
-[@specialized(Int,Long) K, +D<:IterableDomain[K],
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, +D<:IterableDomain[K],
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K,V],
  +This<:VectorSlice[K,V,Coll]]
 extends tensor.VectorSliceLike[K, D, V, Coll, This]
@@ -47,7 +47,7 @@ with VectorLike[V, This];
  * @author dramage
  */
 trait VectorSlice
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K, V]]
 extends tensor.VectorSlice[K,V,Coll]
 with Tensor1Slice[K,Int,V,Coll]
@@ -61,8 +61,8 @@ with VectorSliceLike[K, IterableDomain[K], V, Coll, VectorSlice[K, V, Coll]];
  * @author dramage
  */
 trait VectorRowSliceLike
-[@specialized(Int,Long) K, +D<:IterableDomain[K],
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, +D<:IterableDomain[K],
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K,V],
  +This<:VectorRowSlice[K,V,Coll]]
 extends tensor.VectorRowSliceLike[K, D, V, Coll, This]
@@ -75,7 +75,7 @@ with VectorRowLike[V, This];
  * @author dramage
  */
 trait VectorRowSlice
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K, V]]
 extends tensor.VectorRowSlice[K,V,Coll]
 with VectorSlice[K,V,Coll]
@@ -95,8 +95,8 @@ object VectorRowSlice {
  * @author dramage
  */
 trait VectorColSliceLike
-[@specialized(Int,Long) K, +D<:IterableDomain[K],
- @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, +D<:IterableDomain[K],
+ /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K,V],
  +This<:VectorColSlice[K,V,Coll]]
 extends tensor.VectorColSliceLike[K, D, V, Coll, This]
@@ -109,7 +109,7 @@ with VectorColLike[V, This];
  * @author dramage
  */
 trait VectorColSlice
-[@specialized(Int,Long) K, @specialized(Int,Long,Float,Double,Boolean) V,
+[/*@specialized(Int,Long)*/ K, /*@specialized(Int,Long,Float,Double,Boolean)*/ V,
  +Coll<:Tensor[K, V]]
 extends tensor.VectorColSlice[K,V,Coll]
 with VectorSlice[K,V,Coll]

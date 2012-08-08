@@ -33,7 +33,7 @@ import dense.DenseMatrix;
  *
  * @author dramage
  */
-trait MatrixLike[@specialized(Int,Long,Float,Double) V, +This<:Matrix[V]]
+trait MatrixLike[/*@specialized(Int,Long,Float,Double)*/ V, +This<:Matrix[V]]
 extends Tensor2Like[Int,Int,V,IndexDomain,IndexDomain,TableDomain,TableDomain,This] {
 self =>
 
@@ -177,7 +177,7 @@ self =>
 //    new Tensor2ColsMonadic[K1,V,This,That] { override def repr = self.repr; }
 }
 
-trait Matrix[@specialized(Int,Long,Float,Double) V]
+trait Matrix[/*@specialized(Int,Long,Float,Double)*/ V]
 extends Tensor2[Int,Int,V]
 with MatrixLike[V,Matrix[V]];
 
@@ -232,7 +232,7 @@ object Matrix {
   (implicit override val scalar : Scalar[V])
   extends ColSlice[V,Coll];
 
-  trait MatrixSliceLike[@specialized(Int,Long,Float,Double,Boolean) V,
+  trait MatrixSliceLike[/*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Matrix[V], +This<:MatrixSlice[V,Coll]]
   extends TensorSliceLike[(Int,Int),TableDomain,(Int,Int),TableDomain,V,Coll,This]
   with MatrixLike[V,This] {
@@ -247,7 +247,7 @@ object Matrix {
       underlying.apply(lookup1(i), lookup2(j));
   }
 
-  trait MatrixSlice[@specialized(Int,Long,Float,Double,Boolean) V,
+  trait MatrixSlice[/*@specialized(Int,Long,Float,Double,Boolean)*/ V,
    +Coll<:Matrix[V]]
   extends TensorSlice[(Int,Int),(Int,Int),V,Coll]
   with Matrix[V] with MatrixSliceLike[V,Coll,MatrixSlice[V,Coll]];
@@ -265,9 +265,9 @@ object Matrix {
   }
 
   implicit def canMulMatrixByMatrix[
-   @specialized(Int,Double) V1, A, ARow, ADomainRow, InnerDomain, ADomain,
-   @specialized(Int,Double) V2, B, BCol, BDomainCol, BDomain,
-   @specialized(Int,Double) RV, RDomain, That]
+   /*@specialized(Int,Double)*/ V1, A, ARow, ADomainRow, InnerDomain, ADomain,
+   /*@specialized(Int,Double)*/ V2, B, BCol, BDomainCol, BDomain,
+   /*@specialized(Int,Double)*/ RV, RDomain, That]
   (implicit
     viewA : A=>Matrix[V1],
     sliceA : CanSliceRow[A,Int,ARow],

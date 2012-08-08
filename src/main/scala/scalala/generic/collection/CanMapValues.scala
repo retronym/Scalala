@@ -29,7 +29,7 @@ import scalala.collection.sparse.{SparseArray,DefaultArrayValue};
  *
  * @author dramage
  */
-trait CanMapValues[From, @specialized A, @specialized B, +To] {
+trait CanMapValues[From, /*@specialized*/ A, /*@specialized*/ B, +To] {
   /** Maps all values from the given collection. */
   def map(from : From, fn : (A=>B)) : To;
 
@@ -44,7 +44,7 @@ object CanMapValues {
   // Arrays
   //
 
-  class OpArray[@specialized A, @specialized B:ClassManifest]
+  class OpArray[/*@specialized*/ A, /*@specialized*/ B:ClassManifest]
   extends Op[Array[A],A,B,Array[B]] {
     def map(from : Array[A], fn : (A=>B)) =
       from.map(fn);
@@ -52,7 +52,7 @@ object CanMapValues {
       this.map(from, fn);
   }
 
-  implicit def opArray[@specialized A, @specialized B:ClassManifest] =
+  implicit def opArray[/*@specialized*/ A, /*@specialized*/ B:ClassManifest] =
     new OpArray[A,B];
 
   implicit object OpArrayII extends OpArray[Int,Int];
@@ -70,7 +70,7 @@ object CanMapValues {
   // SparseArrays
   //
 
-  class OpSparseArray[@specialized V, @specialized RV:ClassManifest:DefaultArrayValue]
+  class OpSparseArray[/*@specialized*/ V, /*@specialized*/ RV:ClassManifest:DefaultArrayValue]
   extends Op[SparseArray[V],V,RV,SparseArray[RV]] {
     def map(from : SparseArray[V], fn : (V=>RV)) =
       from.map(fn);
@@ -82,7 +82,7 @@ object CanMapValues {
     }
   }
 
-  implicit def opSparseArray[@specialized V, @specialized RV:ClassManifest:DefaultArrayValue] =
+  implicit def opSparseArray[/*@specialized*/ V, /*@specialized*/ RV:ClassManifest:DefaultArrayValue] =
     new OpSparseArray[V,RV];
 
   implicit object OpSparseArrayII extends OpSparseArray[Int,Int];
